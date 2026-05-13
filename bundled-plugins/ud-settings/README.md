@@ -1,79 +1,95 @@
+
 # UD Settings
 
-UD Settings stellt zentrale Einstellungen für WordPress-Projekte bereit. Das Plugin bündelt wiederverwendbare Grundkonfigurationen, die sonst häufig in der `functions.php` eines Themes landen würden.
+UD Settings stellt zentrale Einstellungen für WordPress-Projekte bereit.
 
-Ziel ist eine schlankere Theme-Struktur und eine zentral gepflegte Projektkonfiguration für Editor, Admin-Oberfläche, Medienverarbeitung, Kommentare und Wartungsfunktionen.
+Das Plugin bündelt wiederverwendbare Grundkonfigurationen, die sonst häufig in der `functions.php` eines Themes landen würden. Ziel ist eine schlankere Theme-Struktur und eine zentral gepflegte Projektkonfiguration für Admin-Oberfläche, Block Editor, Medienverarbeitung, Kommentare und Wartungsfunktionen.
+
+![UD Settings Admin-Oberfläche](assets/ud_settings.webp)
+
+*UD Settings bündelt zentrale WordPress-Einstellungen in einer eigenen Admin-Oberfläche.*
 
 ## Funktionen
 
-Das Plugin enthält aktuell folgende Bereiche:
+Aktuell enthält das Plugin folgende Bereiche:
 
-- Admin-Oberfläche
-- Block-Sichtbarkeit
-- Kommentare
-- Medien
-- Revisionen
+* **Admin-Oberfläche**
+  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen.
+
+* **Block-Sichtbarkeit**
+  Steuerung, welche Blöcke und Block-Variationen im Block Editor zur Auswahl stehen.
+
+* **Kommentare**
+  Globale Deaktivierung der Kommentar-Funktion inklusive Admin-Menü, Admin-Bar und Frontend-Ausgabe.
+
+* **Medien**
+  Einstellungen für Uploads und Bildverarbeitung, unter anderem SVG-Uploads, maximale Bildgrössen und optionale WebP-/AVIF-Erzeugung.
+
+* **Revisionen**
+  Manuelle Bereinigung alter Revisionen mit einstellbarer Anzahl zu behaltender Revisionen pro Inhalt.
 
 ## Admin-Oberfläche
 
-Die Option „Admin-Oberfläche“ vereinfacht die WordPress-Administration.
+Die Option **Admin-Oberfläche** vereinfacht die WordPress-Administration.
 
 Einzeln steuerbar sind:
 
-- WordPress-Logo aus der Admin-Bar entfernen
-- „Neu“-Menü aus der Admin-Bar entfernen
-- Archiv-Link aus der Admin-Bar entfernen
-- Dashboard-Boxen standardmässig ausblenden
+* WordPress-Logo aus der Admin-Bar entfernen
+* „Neu“-Menü aus der Admin-Bar entfernen
+* Archiv-Link aus der Admin-Bar entfernen
+* Dashboard-Boxen standardmässig ausblenden
 
 Die Einstellungen greifen teilweise erst nach einem Neuladen der Admin-Seite, da Admin-Bar und Dashboard serverseitig beim Seitenaufbau erzeugt werden.
 
 ## Block-Sichtbarkeit
 
-Die Option „Block-Sichtbarkeit“ steuert, welche Blöcke im Editor angeboten werden.
+Die Option **Block-Sichtbarkeit** steuert, welche Blöcke und Block-Variationen im Block Editor angeboten werden.
 
 Möglich ist:
 
-- registrierte Blöcke im Editor ausblenden
-- Block-Variationen ausblenden
-- nach Blöcken suchen
-- alle gefilterten Einträge ausschliessen oder freigeben
+* registrierte Blöcke im Editor ausblenden
+* Block-Variationen ausblenden
+* nach Blöcken suchen
+* alle gefilterten Einträge ausschliessen oder freigeben
 
 Ausgeschlossene Blöcke werden nicht deregistriert. Bestehende Inhalte bleiben erhalten und werden weiterhin im Frontend ausgegeben. Die Blöcke werden lediglich im Editor nicht mehr zur Auswahl angeboten.
 
 Zusätzlich können aktuell folgende Core-Block-Variationen ausgeblendet werden:
 
-- `core/heading::stretchy-heading`
-- `core/paragraph::stretchy-paragraph`
+* `core/heading::stretchy-heading`
+* `core/paragraph::stretchy-paragraph`
 
 ## Kommentare
 
-Die Option „Kommentare“ deaktiviert die Kommentar-Funktion global.
+Die Option **Kommentare** deaktiviert die Kommentar-Funktion global.
 
 Wenn aktiviert, werden:
 
-- Kommentare und Trackbacks für Post Types deaktiviert
-- Kommentare und Pings im Frontend geschlossen
-- bestehende Kommentare im Frontend ausgeblendet
-- die Kommentar-Seite im Admin entfernt
-- Kommentar-Links aus der Admin-Bar entfernt
-- Kommentar-Metaboxen aus dem Dashboard entfernt
+* Kommentare und Trackbacks für Post Types deaktiviert
+* Kommentare und Pings im Frontend geschlossen
+* bestehende Kommentare im Frontend ausgeblendet
+* die Kommentar-Seite im Admin entfernt
+* Kommentar-Links aus der Admin-Bar entfernt
+* Kommentar-Metaboxen aus dem Dashboard entfernt
 
 ## Medien
 
-Die Option „Medien“ steuert Uploads und Bildverarbeitung.
+Die Option **Medien** steuert Uploads und Bildverarbeitung.
 
 Aktuell verfügbar:
 
-- SVG/SVGZ Upload erlauben
-- grosse Bilder automatisch auf 2560 px begrenzen
-- im Editor standardmässig die Bildgrösse „Maximale Grösse“ verwenden
-- neu erzeugte WordPress-Bilddateien von JPEGs optional als AVIF oder WebP speichern
+* SVG/SVGZ Upload erlauben
+* grosse Bilder automatisch auf 2560 px begrenzen
+* im Editor standardmässig die Bildgrösse „Maximale Grösse“ verwenden
+* neu erzeugte WordPress-Bilddateien von JPEGs optional als AVIF oder WebP speichern
 
-Die JPEG-Konvertierung betrifft von WordPress neu erzeugte Bilddateien. Die hochgeladene Originaldatei bleibt unverändert. PNGs und andere Formate bleiben ebenfalls unverändert.
+Die JPEG-Konvertierung betrifft nur von WordPress neu erzeugte Bilddateien. Die hochgeladene Originaldatei bleibt unverändert. PNGs und andere Formate bleiben ebenfalls unverändert.
+
+Bereits vorhandene Medien und Bildgrössen werden nicht rückwirkend angepasst.
 
 ## Revisionen
 
-Die Option „Revisionen“ dient zur Bereinigung alter WordPress-Revisionen.
+Die Option **Revisionen** dient zur Bereinigung alter WordPress-Revisionen.
 
 Einstellbar ist, wie viele Revisionen pro Inhalt behalten werden sollen. Beim Ausführen der Bereinigung bleiben pro Beitrag, Seite oder individuellem Inhaltstyp nur die neuesten Revisionen in der definierten Anzahl erhalten. Ältere Revisionen werden dauerhaft gelöscht.
 
@@ -131,7 +147,7 @@ Build erstellen:
 npm run build
 ```
 
-Während der Entwicklung kann je nach Projektkonfiguration auch der Watch-Modus verwendet werden:
+Während der Entwicklung kann der Watch-Modus verwendet werden:
 
 ```bash
 npm run start
