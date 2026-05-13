@@ -1,0 +1,20 @@
+/* =============================================================== *\
+   Frontend Entry Point
+
+   Einstiegspunkt für alle Frontend-Styles.
+
+   Wird nach build/style.css kompiliert
+   und im Frontend geladen.
+\* =============================================================== */
+
+@use 'shared/variables';
+
+@use 'frontend/reset';
+@use 'frontend/base';
+
+@use 'frontend/layout';
+@use 'frontend/header';
+@use 'frontend/footer';
+@use 'frontend/page';
+
+@use 'frontend/plugins';

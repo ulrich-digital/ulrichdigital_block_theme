@@ -1,0 +1,45 @@
+@use "../shared/variables";
+
+/* =============================================================== *\
+   Basis HTML-Elemente
+\* =============================================================== */
+body {
+	background: variables.$color-background;
+
+	font-size: 1.125rem;
+	color: variables.$color-text;
+
+	font-optical-sizing: auto;
+	font-kerning: normal;
+	font-feature-settings: "kern" 1;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================== *\
+   Formularfelder
+\* =============================================================== */
+input,
+textarea {
+	margin: 10px 20px;
+	border: none;
+	padding: 10px 16px;
+	line-height: 1em;
+}
+
+input:focus,
+textarea:focus {
+	border: none;
+	outline: none;
+}
+
+input[type="submit"] {
+	cursor: pointer;
+	border: 1px solid;
+	border-radius: 100px;
+	padding: 0.7rem 1.4rem;
+
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
+}

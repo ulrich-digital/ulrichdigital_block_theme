@@ -1,0 +1,69 @@
+.ud-settings-revisions__loading {
+	display: flex;
+	align-items: center;
+	gap: var(--ud-settings-space-150);
+	min-height: 80px;
+}
+
+.ud-settings-revisions__actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: var(--ud-settings-space-100);
+}
+
+.ud-settings-revisions__summary {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--ud-settings-space-100);
+	margin-bottom: var(--ud-settings-space-300);
+	padding: var(--ud-settings-space-200) var(--ud-settings-space-250);
+	border: 1px solid var(--ud-settings-color-border);
+	border-radius: var(--ud-settings-radius-md);
+	background: var(--ud-settings-color-surface-soft);
+}
+
+.ud-settings-revisions__summary-number {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-revisions__summary-label {
+	font-size: var(--ud-settings-font-size-md);
+	font-weight: 700;
+	line-height: 1.35;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-revisions__setting {
+	cursor: default;
+}
+
+.ud-settings-revisions__spacer {
+	width: 24px;
+}
+
+.ud-settings-revisions__setting .components-base-control {
+	margin-top: var(--ud-settings-space-200);
+	max-width: 180px;
+}
+
+@media (max-width: 782px) {
+	.ud-settings-revisions__actions {
+		justify-content: flex-start;
+	}
+
+	.ud-settings-revisions__summary {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.ud-settings-revisions__setting {
+		grid-template-columns: 22px minmax(0, 1fr);
+	}
+}

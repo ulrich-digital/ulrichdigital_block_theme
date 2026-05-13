@@ -1,0 +1,317 @@
+:root {
+	--ud-settings-color-text: #1d2327;
+	--ud-settings-color-muted: #646970;
+	--ud-settings-color-border: #dcdcde;
+	--ud-settings-color-border-hover: #8c8f94;
+	--ud-settings-color-surface: #fff;
+	--ud-settings-color-surface-soft: #f6f7f7;
+	--ud-settings-color-primary: #2271b1;
+	--ud-settings-color-primary-soft: #eef6fc;
+	--ud-settings-color-danger: #d63638;
+	--ud-settings-color-danger-soft: #fff7f7;
+
+	--ud-settings-radius-sm: 8px;
+	--ud-settings-radius-md: 12px;
+	--ud-settings-radius-lg: 14px;
+	--ud-settings-radius-pill: 999px;
+
+	--ud-settings-shadow-card: 0 2px 10px rgba(0, 0, 0, 0.04);
+	--ud-settings-shadow-card-hover: 0 4px 14px rgba(0, 0, 0, 0.07);
+
+	--ud-settings-space-100: 8px;
+	--ud-settings-space-150: 12px;
+	--ud-settings-space-200: 16px;
+	--ud-settings-space-250: 20px;
+	--ud-settings-space-300: 24px;
+	--ud-settings-space-350: 28px;
+
+	--ud-settings-font-size-xs: 11px;
+	--ud-settings-font-size-sm: 12px;
+	--ud-settings-font-size-md: 14px;
+	--ud-settings-font-size-lg: 15px;
+	--ud-settings-font-size-xl: 22px;
+	--ud-settings-font-size-title: 34px;
+}
+
+.ud-settings-app {
+	max-width: 1440px;
+	margin-top: var(--ud-settings-space-350);
+	color: var(--ud-settings-color-text);
+	.components-notice {
+		margin-bottom: 2rem;
+	}
+}
+
+.ud-settings-app__header {
+	margin-bottom: var(--ud-settings-space-300);
+}
+
+.ud-settings-app__eyebrow {
+	margin: 0 0 var(--ud-settings-space-100);
+	font-size: var(--ud-settings-font-size-sm);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-app__title {
+	margin: 0;
+	font-size: var(--ud-settings-font-size-title);
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-app__intro {
+	margin: var(--ud-settings-space-150) 0 0;
+	max-width: 720px;
+	font-size: var(--ud-settings-font-size-lg);
+	line-height: 1.55;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-app__layout {
+	display: grid;
+	grid-template-columns: 280px minmax(0, 1fr);
+	align-items: start;
+	gap: var(--ud-settings-space-300);
+}
+
+.ud-settings-app__nav,
+.ud-settings-card.components-card {
+	border: 1px solid var(--ud-settings-color-border);
+	border-radius: var(--ud-settings-radius-lg);
+	background: var(--ud-settings-color-surface);
+	box-shadow: var(--ud-settings-shadow-card);
+	overflow: hidden;
+}
+
+.ud-settings-app__nav {
+	position: sticky;
+	top: 48px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--ud-settings-space-100);
+	padding: var(--ud-settings-space-150);
+}
+
+.ud-settings-card.components-card {
+	max-width: none;
+}
+
+.ud-settings-card.components-card > .components-card__header:first-child {
+	border-top-left-radius: var(--ud-settings-radius-lg);
+	border-top-right-radius: var(--ud-settings-radius-lg);
+}
+
+.ud-settings-card.components-card > .components-card__body:last-child {
+	border-bottom-right-radius: var(--ud-settings-radius-lg);
+	border-bottom-left-radius: var(--ud-settings-radius-lg);
+}
+
+.ud-settings-app__nav-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 100%;
+	padding: 14px;
+	border: 1px solid transparent;
+	border-radius: var(--ud-settings-radius-md);
+	background: transparent;
+	text-align: left;
+	cursor: pointer;
+}
+
+.ud-settings-app__nav-item:hover {
+	background: var(--ud-settings-color-surface-soft);
+}
+
+.ud-settings-app__nav-item.is-active {
+	border-color: var(--ud-settings-color-primary);
+	background: var(--ud-settings-color-primary-soft);
+}
+
+.ud-settings-app__nav-title {
+	font-size: var(--ud-settings-font-size-md);
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-app__nav-description {
+	font-size: var(--ud-settings-font-size-sm);
+	line-height: 1.4;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-app__content {
+	min-width: 0;
+}
+
+.ud-settings-card + .ud-settings-card {
+	margin-top: var(--ud-settings-space-300);
+}
+
+.ud-settings-card .components-card__body,
+.ud-settings-card .components-card__header {
+	padding: 26px;
+}
+
+.ud-settings-card .components-card__header {
+	border-bottom: 1px solid var(--ud-settings-color-border);
+	background: var(--ud-settings-color-surface);
+}
+
+.ud-settings-section-header {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: start;
+	gap: var(--ud-settings-space-300);
+	margin-bottom: var(--ud-settings-space-300);
+}
+
+.ud-settings-section-header h2 {
+	margin: 0 0 var(--ud-settings-space-100);
+	font-size: var(--ud-settings-font-size-xl);
+	font-weight: 700;
+	line-height: 1.25;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-section-header p {
+	margin: 0;
+	max-width: 760px;
+	font-size: var(--ud-settings-font-size-md);
+	line-height: 1.5;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-choice {
+	display: grid;
+	grid-template-columns: 24px minmax(0, 1fr) auto;
+	align-items: start;
+	gap: 14px 18px;
+	padding: var(--ud-settings-space-250);
+	border: 1px solid var(--ud-settings-color-border);
+	border-radius: var(--ud-settings-radius-md);
+	background: var(--ud-settings-color-surface);
+	box-sizing: border-box;
+	cursor: pointer;
+	transition:
+		background-color 0.16s ease,
+		border-color 0.16s ease,
+		box-shadow 0.16s ease,
+		transform 0.16s ease;
+}
+
+.ud-settings-choice:hover {
+	border-color: var(--ud-settings-color-border-hover);
+	box-shadow: var(--ud-settings-shadow-card-hover);
+	transform: translateY(-1px);
+}
+
+.ud-settings-choice.is-active,
+.ud-settings-choice.is-excluded {
+	border-color: var(--ud-settings-color-danger);
+	background: var(--ud-settings-color-danger-soft);
+}
+
+.ud-settings-choice .components-base-control,
+.ud-settings-choice .components-base-control__field {
+	margin: 0;
+}
+
+.ud-settings-choice .components-checkbox-control__input-container {
+	margin: 0;
+}
+
+.ud-settings-choice__content {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.ud-settings-choice__title {
+	margin-bottom: 6px;
+	font-size: var(--ud-settings-font-size-lg);
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-choice__code {
+	display: inline-block;
+	width: fit-content;
+	max-width: 100%;
+	margin-bottom: 12px;
+	padding: 3px 7px;
+	border-radius: 5px;
+	background: #f0f0f1;
+	font-size: var(--ud-settings-font-size-sm);
+	line-height: 1.35;
+	white-space: normal;
+	word-break: break-word;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-choice__description {
+	font-size: 13px;
+	line-height: 1.45;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-status {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	justify-self: end;
+	width: fit-content;
+	max-width: 100%;
+	padding: 6px 11px;
+	border-radius: var(--ud-settings-radius-pill);
+	background: var(--ud-settings-color-primary-soft);
+	font-size: var(--ud-settings-font-size-xs);
+	font-weight: 700;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	white-space: nowrap;
+	color: #0073aa;
+}
+
+.ud-settings-choice.is-active .ud-settings-status,
+.ud-settings-choice.is-excluded .ud-settings-status {
+	background: var(--ud-settings-color-danger);
+	color: #fff;
+}
+
+@media (max-width: 960px) {
+	.ud-settings-app__layout {
+		grid-template-columns: 1fr;
+	}
+
+	.ud-settings-app__nav {
+		position: static;
+	}
+}
+
+@media (max-width: 782px) {
+	.ud-settings-card .components-card__body,
+	.ud-settings-card .components-card__header {
+		padding: var(--ud-settings-space-250);
+	}
+
+	.ud-settings-section-header {
+		grid-template-columns: 1fr;
+	}
+
+	.ud-settings-choice {
+		grid-template-columns: 22px minmax(0, 1fr);
+	}
+
+	.ud-settings-status {
+		grid-column: 2;
+		justify-self: start;
+	}
+}

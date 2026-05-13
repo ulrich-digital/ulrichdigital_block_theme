@@ -1,0 +1,11 @@
+/* =============================================================== *\
+   Shared Entry Point
+
+   Styles, die im Frontend und im Editor geladen werden.
+
+   Wird nach build/shared.css kompiliert
+   und in beiden Kontexten verwendet.
+\* =============================================================== */
+
+@use "shared/variables";
+@use "shared/wordpress-native";

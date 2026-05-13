@@ -1,0 +1,63 @@
+{
+	"version": 3,
+	"settings": {
+		"align": {
+    		"wide": true
+    	},
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1100px"
+		},
+		"spacing": {
+			"units": [ "px", "em", "rem", "vw", "%" ]
+		},
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"palette": []
+		},
+		"typography": {
+			"customFontSize": false,
+			"dropCap": false,
+            "fontFamilies": [
+                {
+                    "fontFamily": "\"Rubik\", sans-serif",
+                    "name": "Rubik",
+                    "slug": "rubik",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Rubik",
+                            "fontStyle": "normal",
+                            "fontWeight": "100 900",
+                            "src": [
+                                "file:./assets/fonts/Rubik-VariableFont_wght.woff2"
+                            ]
+                        },
+                        {
+                            "fontFamily": "Rubik",
+                            "fontStyle": "italic",
+                            "fontWeight": "100 900",
+                            "src": [
+                                "file:./assets/fonts/Rubik-Italic-VariableFont_wght.woff2"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "fontSizes": [
+                {
+                    "slug": "base",
+                    "size": "1.125rem",
+                    "name": "Base"
+                }
+            ]
+        }
+    },
+    "styles": {
+        "typography": {
+			"fontFamily": "var(--wp--preset--font-family--rubik)",
+            "fontSize": "var(--wp--preset--font-size--base)",
+            "lineHeight": "1.25"
+        }
+    }
+}

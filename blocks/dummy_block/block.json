@@ -1,0 +1,17 @@
+{
+    "_comment": "Place your comments here.",
+    "name": "name-your-block-here",
+    "title": "Your Block-Title",
+    "description": "Place your description here.",
+    "style": [
+        "file:./dummy.css"
+    ],
+    "category": "formatting",
+    "icon": "clipboard",
+    "keywords": [],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "dummy.php"
+    },
+    "align": "full"
+}

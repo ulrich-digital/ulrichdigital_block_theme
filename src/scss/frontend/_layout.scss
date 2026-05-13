@@ -1,0 +1,60 @@
+@use "../shared/variables";
+
+/* =============================================================== *\
+   Layout
+\* =============================================================== */
+body {
+	.wp-site-blocks {
+		> .entry-content.wp-block-post-content {
+			margin-top: clamp(180px, 10vw, 200px);
+			padding-right: var(--ud-site-inline-spacing);
+			padding-left: var(--ud-site-inline-spacing);
+
+			> .alignfull {
+				width: calc(100% + (var(--ud-site-inline-spacing) * 2));
+				max-width: none;
+				margin-right: calc(var(--ud-site-inline-spacing) * -1);
+				margin-left: calc(var(--ud-site-inline-spacing) * -1);
+			}
+		}
+	}
+}
+
+/* =============================================================== *\
+   Seitentitel
+\* =============================================================== */
+body {
+	.wp-site-blocks {
+		.wp-block-post-title {
+			width: 100%;
+			max-width: calc(
+				var(--wp--style--global--content-size) +
+					(var(--ud-site-inline-spacing) * 2)
+			);
+			margin-top: clamp(180px, 10vw, 200px);
+			margin-right: auto;
+			margin-bottom: 5.5rem;
+			margin-left: auto;
+			padding-right: var(--ud-site-inline-spacing);
+			padding-left: var(--ud-site-inline-spacing);
+		}
+		/* =============================================================== *\
+            Seitentitel und Content-Abstand
+        \* =============================================================== */
+		> .wp-block-post-title + .entry-content.wp-block-post-content {
+			margin-top: 0;
+		}
+	}
+}
+
+
+
+/* =============================================================== *\
+   Listen im Content
+\* =============================================================== */
+.entry-content ul {
+    padding-top: 0.5rem;
+	padding-left: 1.25rem;
+    padding-bottom: 0.5rem;
+	list-style: disc;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "ulrichdigital_block_theme",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "sass src/scss/frontend.scss:build/frontend.css src/scss/shared.scss:build/shared.css src/scss/editor.scss:build/editor.css --no-source-map",
+    "watch:css": "sass --watch src/scss/frontend.scss:build/frontend.css src/scss/shared.scss:build/shared.css src/scss/editor.scss:build/editor.css --no-source-map",
+"build:js": "esbuild src/js/frontend.js src/js/shared.js src/js/editor.js --bundle --outdir=build --format=iife",
+"watch:js": "esbuild src/js/frontend.js src/js/shared.js src/js/editor.js --bundle --outdir=build --format=iife --watch",
+    "build": "npm run build:css && npm run build:js",
+    "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.25.12",
+    "sass": "^1.92.1"
+  }
+}

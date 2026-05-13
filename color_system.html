@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Statusfarben Systeme</title>
+  <style>
+    :root {
+      --theme-50:  #ebf3e8;
+      --theme-100: #dfefd9;
+      --theme-200: #b9e4b9;
+      --theme-300: #7fcb86;
+      --theme-400: #53ac59;
+      --theme-500: #3e8e41;
+      --theme-600: #1e6e21;
+      --theme-700: #155217;
+      --theme-800: #0e3d10;
+      --theme-900: #082d0a;
+
+  --theme-100: #e6f4ea;
+  --theme-200: #c8e6c9;
+  --theme-300: #a5d6a7;
+  --theme-400: #81c784;
+  --theme-500: #34a853;
+  --theme-600: #2e7d32;
+  --theme-700: #1b5e20;
+  --theme-800: #0d3b24;
+  --theme-900: #08351a;
+    }
+
+    body { font-family: sans-serif; margin: 2rem; background:#f9f9f9; color:#333; }
+    h1 { margin-bottom:1rem; }
+    h2 { margin-top:2rem; }
+    h3 { margin-top:1rem; }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .swatch {
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #fff;
+    }
+    .swatch span {
+      display:block;
+      font-size:0.65rem;
+      margin-top:0.25rem;
+    }
+    .light { color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>Theme (Grün)</h1>
+<div class="palette">
+  <div class="swatch light" style="background:var(--theme-50)">--theme-50<span>#f3f8f1</span></div>
+  <div class="swatch light" style="background:var(--theme-100)">--theme-100<span>#dfefd9</span></div>
+  <div class="swatch light" style="background:var(--theme-200)">--theme-200<span>#b9e4b9</span></div>
+  <div class="swatch light" style="background:var(--theme-300)">--theme-300<span>#7fcb86</span></div>
+  <div class="swatch" style="background:var(--theme-400)">--theme-400<span>#53ac59</span></div>
+  <div class="swatch" style="background:var(--theme-500)">--theme-500<span>#3e8e41</span></div>
+  <div class="swatch" style="background:var(--theme-600)">--theme-600<span>#1e6e21</span></div>
+  <div class="swatch" style="background:var(--theme-700)">--theme-700<span>#155217</span></div>
+  <div class="swatch" style="background:var(--theme-800)">--theme-800<span>#0e3d10</span></div>
+  <div class="swatch" style="background:var(--theme-900)">--theme-900<span>#082d0a</span></div>
+</div>
+
+<h1>Statusfarben – Systemvergleich</h1>
+
+<!-- OPEN COLOR -->
+<h2>Open Color</h2>
+
+<h3>Positive (Green)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#ebfbee">100<span>#ebfbee</span></div>
+  <div class="swatch light" style="background:#d3f9d8">200<span>#d3f9d8</span></div>
+  <div class="swatch light" style="background:#b2f2bb">300<span>#b2f2bb</span></div>
+  <div class="swatch light" style="background:#8ce99a">400<span>#8ce99a</span></div>
+  <div class="swatch" style="background:#69db7c">500<span>#69db7c</span></div>
+  <div class="swatch" style="background:#51cf66">600<span>#51cf66</span></div>
+  <div class="swatch" style="background:#40c057">700<span>#40c057</span></div>
+  <div class="swatch" style="background:#37b24d">800<span>#37b24d</span></div>
+  <div class="swatch" style="background:#2f9e44">900<span>#2f9e44</span></div>
+</div>
+
+<h3>Warning (Yellow)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fff9db">100<span>#fff9db</span></div>
+  <div class="swatch light" style="background:#fff3bf">200<span>#fff3bf</span></div>
+  <div class="swatch light" style="background:#ffec99">300<span>#ffec99</span></div>
+  <div class="swatch light" style="background:#ffe066">400<span>#ffe066</span></div>
+  <div class="swatch light" style="background:#ffd43b">500<span>#ffd43b</span></div>
+  <div class="swatch" style="background:#fcc419">600<span>#fcc419</span></div>
+  <div class="swatch" style="background:#fab005">700<span>#fab005</span></div>
+  <div class="swatch" style="background:#f59f00">800<span>#f59f00</span></div>
+  <div class="swatch" style="background:#f08c00">900<span>#f08c00</span></div>
+</div>
+
+<h3>Error (Red)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fff5f5">100<span>#fff5f5</span></div>
+  <div class="swatch light" style="background:#ffe3e3">200<span>#ffe3e3</span></div>
+  <div class="swatch light" style="background:#ffc9c9">300<span>#ffc9c9</span></div>
+  <div class="swatch light" style="background:#ffa8a8">400<span>#ffa8a8</span></div>
+  <div class="swatch" style="background:#ff8787">500<span>#ff8787</span></div>
+  <div class="swatch" style="background:#ff6b6b">600<span>#ff6b6b</span></div>
+  <div class="swatch" style="background:#fa5252">700<span>#fa5252</span></div>
+  <div class="swatch" style="background:#f03e3e">800<span>#f03e3e</span></div>
+  <div class="swatch" style="background:#e03131">900<span>#e03131</span></div>
+</div>
+
+<h3>Info (Blue)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#e7f5ff">100<span>#e7f5ff</span></div>
+  <div class="swatch light" style="background:#d0ebff">200<span>#d0ebff</span></div>
+  <div class="swatch light" style="background:#a5d8ff">300<span>#a5d8ff</span></div>
+  <div class="swatch light" style="background:#74c0fc">400<span>#74c0fc</span></div>
+  <div class="swatch" style="background:#4dabf7">500<span>#4dabf7</span></div>
+  <div class="swatch" style="background:#339af0">600<span>#339af0</span></div>
+  <div class="swatch" style="background:#228be6">700<span>#228be6</span></div>
+  <div class="swatch" style="background:#1c7ed6">800<span>#1c7ed6</span></div>
+  <div class="swatch" style="background:#1971c2">900<span>#1971c2</span></div>
+</div>
+
+<h3>Neutral (Gray)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#f8f9fa">100<span>#f8f9fa</span></div>
+  <div class="swatch light" style="background:#f1f3f5">200<span>#f1f3f5</span></div>
+  <div class="swatch light" style="background:#e9ecef">300<span>#e9ecef</span></div>
+  <div class="swatch light" style="background:#dee2e6">400<span>#dee2e6</span></div>
+  <div class="swatch light" style="background:#ced4da">500<span>#ced4da</span></div>
+  <div class="swatch" style="background:#adb5bd">600<span>#adb5bd</span></div>
+  <div class="swatch" style="background:#868e96">700<span>#868e96</span></div>
+  <div class="swatch" style="background:#495057">800<span>#495057</span></div>
+  <div class="swatch" style="background:#343a40">900<span>#343a40</span></div>
+</div>
+
+<!-- RADIX -->
+<h2>Radix Colors</h2>
+
+<h3>Positive (Green)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fbfefc">100<span>#fbfefc</span></div>
+  <div class="swatch light" style="background:#e6f9ec">200<span>#e6f9ec</span></div>
+  <div class="swatch light" style="background:#d1f3da">300<span>#d1f3da</span></div>
+  <div class="swatch light" style="background:#b0ebc6">400<span>#b0ebc6</span></div>
+  <div class="swatch" style="background:#30a46c">500<span>#30a46c</span></div>
+  <div class="swatch" style="background:#299764">600<span>#299764</span></div>
+  <div class="swatch" style="background:#18794e">700<span>#18794e</span></div>
+  <div class="swatch" style="background:#193b2d">800<span>#193b2d</span></div>
+  <div class="swatch" style="background:#0d1912">900<span>#0d1912</span></div>
+</div>
+
+<h3>Warning (Amber)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fefdfb">100<span>#fefdfb</span></div>
+  <div class="swatch light" style="background:#fef6e7">200<span>#fef6e7</span></div>
+  <div class="swatch light" style="background:#ffedc7">300<span>#ffedc7</span></div>
+  <div class="swatch light" style="background:#ffd386">400<span>#ffd386</span></div>
+  <div class="swatch" style="background:#f5a623">500<span>#f5a623</span></div>
+  <div class="swatch" style="background:#e08d00">600<span>#e08d00</span></div>
+  <div class="swatch" style="background:#ad5700">700<span>#ad5700</span></div>
+  <div class="swatch" style="background:#5f2a00">800<span>#5f2a00</span></div>
+  <div class="swatch" style="background:#341500">900<span>#341500</span></div>
+</div>
+
+<h3>Error (Red)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fffcfc">100<span>#fffcfc</span></div>
+  <div class="swatch light" style="background:#fef0ef">200<span>#fef0ef</span></div>
+  <div class="swatch light" style="background:#fdd8d7">300<span>#fdd8d7</span></div>
+  <div class="swatch light" style="background:#fbb5b4">400<span>#fbb5b4</span></div>
+  <div class="swatch" style="background:#e5484d">500<span>#e5484d</span></div>
+  <div class="swatch" style="background:#d93d42">600<span>#d93d42</span></div>
+  <div class="swatch" style="background:#cd2b31">700<span>#cd2b31</span></div>
+  <div class="swatch" style="background:#381316">800<span>#381316</span></div>
+  <div class="swatch" style="background:#1f0a0a">900<span>#1f0a0a</span></div>
+</div>
+
+<h3>Info (Blue)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fbfdff">100<span>#fbfdff</span></div>
+  <div class="swatch light" style="background:#edf6ff">200<span>#edf6ff</span></div>
+  <div class="swatch light" style="background:#e1f0ff">300<span>#e1f0ff</span></div>
+  <div class="swatch light" style="background:#cee7fe">400<span>#cee7fe</span></div>
+  <div class="swatch" style="background:#0091ff">500<span>#0091ff</span></div>
+  <div class="swatch" style="background:#0880ea">600<span>#0880ea</span></div>
+  <div class="swatch" style="background:#0b68cb">700<span>#0b68cb</span></div>
+  <div class="swatch" style="background:#113264">800<span>#113264</span></div>
+  <div class="swatch" style="background:#0a0e1c">900<span>#0a0e1c</span></div>
+</div>
+
+<h3>Neutral (Gray)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fcfcfc">100<span>#fcfcfc</span></div>
+  <div class="swatch light" style="background:#f8f9fa">200<span>#f8f9fa</span></div>
+  <div class="swatch light" style="background:#f1f3f5">300<span>#f1f3f5</span></div>
+  <div class="swatch light" style="background:#e6e8eb">400<span>#e6e8eb</span></div>
+  <div class="swatch light" style="background:#9ba1a6">500<span>#9ba1a6</span></div>
+  <div class="swatch" style="background:#6c7278">600<span>#6c7278</span></div>
+  <div class="swatch" style="background:#464b50">700<span>#464b50</span></div>
+  <div class="swatch" style="background:#11181c">800<span>#11181c</span></div>
+  <div class="swatch" style="background:#0d0f11">900<span>#0d0f11</span></div>
+</div>
+
+<!-- MATERIAL DESIGN -->
+<h2>Material Design 3</h2>
+
+<h3>Positive (Green)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#e6f4ea">100<span>#e6f4ea</span></div>
+  <div class="swatch light" style="background:#c8e6c9">200<span>#c8e6c9</span></div>
+  <div class="swatch light" style="background:#a5d6a7">300<span>#a5d6a7</span></div>
+  <div class="swatch light" style="background:#81c784">400<span>#81c784</span></div>
+  <div class="swatch" style="background:#34a853">500<span>#34a853</span></div>
+  <div class="swatch" style="background:#2e7d32">600<span>#2e7d32</span></div>
+  <div class="swatch" style="background:#1b5e20">700<span>#1b5e20</span></div>
+  <div class="swatch" style="background:#0d3b24">800<span>#0d3b24</span></div>
+  <div class="swatch" style="background:#08351a">900<span>#08351a</span></div>
+</div>
+
+<h3>Warning (Yellow)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fef7e0">100<span>#fef7e0</span></div>
+  <div class="swatch light" style="background:#fff59d">200<span>#fff59d</span></div>
+  <div class="swatch light" style="background:#fff176">300<span>#fff176</span></div>
+  <div class="swatch light" style="background:#ffee58">400<span>#ffee58</span></div>
+  <div class="swatch" style="background:#fbbc04">500<span>#fbbc04</span></div>
+  <div class="swatch" style="background:#f9a825">600<span>#f9a825</span></div>
+  <div class="swatch" style="background:#f57f17">700<span>#f57f17</span></div>
+  <div class="swatch" style="background:#3d2f0a">800<span>#3d2f0a</span></div>
+  <div class="swatch" style="background:#2a1c04">900<span>#2a1c04</span></div>
+</div>
+
+<h3>Error (Red)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fce8e6">100<span>#fce8e6</span></div>
+  <div class="swatch light" style="background:#ffcdd2">200<span>#ffcdd2</span></div>
+  <div class="swatch light" style="background:#ef9a9a">300<span>#ef9a9a</span></div>
+  <div class="swatch light" style="background:#e57373">400<span>#e57373</span></div>
+  <div class="swatch" style="background:#ea4335">500<span>#ea4335</span></div>
+  <div class="swatch" style="background:#d32f2f">600<span>#d32f2f</span></div>
+  <div class="swatch" style="background:#b71c1c">700<span>#b71c1c</span></div>
+  <div class="swatch" style="background:#3c0d0c">800<span>#3c0d0c</span></div>
+  <div class="swatch" style="background:#2a0707">900<span>#2a0707</span></div>
+</div>
+
+<h3>Info (Blue)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#e8f0fe">100<span>#e8f0fe</span></div>
+  <div class="swatch light" style="background:#bbdefb">200<span>#bbdefb</span></div>
+  <div class="swatch light" style="background:#90caf9">300<span>#90caf9</span></div>
+  <div class="swatch light" style="background:#64b5f6">400<span>#64b5f6</span></div>
+  <div class="swatch" style="background:#4285f4">500<span>#4285f4</span></div>
+  <div class="swatch" style="background:#1976d2">600<span>#1976d2</span></div>
+  <div class="swatch" style="background:#0d47a1">700<span>#0d47a1</span></div>
+  <div class="swatch" style="background:#0d234a">800<span>#0d234a</span></div>
+  <div class="swatch" style="background:#061733">900<span>#061733</span></div>
+</div>
+
+<!-- BOOTSTRAP -->
+<h2>Bootstrap 5</h2>
+
+<h3>Positive (Success)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#d1e7dd">100<span>#d1e7dd</span></div>
+  <div class="swatch light" style="background:#a3cfbb">200<span>#a3cfbb</span></div>
+  <div class="swatch light" style="background:#75b798">300<span>#75b798</span></div>
+  <div class="swatch light" style="background:#479f76">400<span>#479f76</span></div>
+  <div class="swatch" style="background:#198754">500<span>#198754</span></div>
+  <div class="swatch" style="background:#157347">600<span>#157347</span></div>
+  <div class="swatch" style="background:#0f5132">700<span>#0f5132</span></div>
+  <div class="swatch" style="background:#0c4128">800<span>#0c4128</span></div>
+  <div class="swatch" style="background:#082c1e">900<span>#082c1e</span></div>
+</div>
+
+<h3>Warning</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#fff3cd">100<span>#fff3cd</span></div>
+  <div class="swatch light" style="background:#ffe69c">200<span>#ffe69c</span></div>
+  <div class="swatch light" style="background:#ffda6a">300<span>#ffda6a</span></div>
+  <div class="swatch light" style="background:#ffcd39">400<span>#ffcd39</span></div>
+  <div class="swatch light" style="background:#ffc107">500<span>#ffc107</span></div>
+  <div class="swatch" style="background:#cc9a06">600<span>#cc9a06</span></div>
+  <div class="swatch" style="background:#996404">700<span>#996404</span></div>
+  <div class="swatch" style="background:#664d03">800<span>#664d03</span></div>
+  <div class="swatch" style="background:#332701">900<span>#332701</span></div>
+</div>
+
+<h3>Error (Danger)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#f8d7da">100<span>#f8d7da</span></div>
+  <div class="swatch light" style="background:#f1aeb5">200<span>#f1aeb5</span></div>
+  <div class="swatch light" style="background:#ea868f">300<span>#ea868f</span></div>
+  <div class="swatch light" style="background:#e35d6a">400<span>#e35d6a</span></div>
+  <div class="swatch" style="background:#dc3545">500<span>#dc3545</span></div>
+  <div class="swatch" style="background:#b02a37">600<span>#b02a37</span></div>
+  <div class="swatch" style="background:#842029">700<span>#842029</span></div>
+  <div class="swatch" style="background:#58151c">800<span>#58151c</span></div>
+  <div class="swatch" style="background:#2c0b0e">900<span>#2c0b0e</span></div>
+</div>
+
+<h3>Info</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#cff4fc">100<span>#cff4fc</span></div>
+  <div class="swatch light" style="background:#9eeaf9">200<span>#9eeaf9</span></div>
+  <div class="swatch light" style="background:#6edff6">300<span>#6edff6</span></div>
+  <div class="swatch light" style="background:#3dd5f3">400<span>#3dd5f3</span></div>
+  <div class="swatch" style="background:#0dcaf0">500<span>#0dcaf0</span></div>
+  <div class="swatch" style="background:#0aa2c0">600<span>#0aa2c0</span></div>
+  <div class="swatch" style="background:#087990">700<span>#087990</span></div>
+  <div class="swatch" style="background:#055160">800<span>#055160</span></div>
+  <div class="swatch" style="background:#032830">900<span>#032830</span></div>
+</div>
+
+<h3>Neutral (Secondary/Gray)</h3>
+<div class="palette">
+  <div class="swatch light" style="background:#e2e3e5">100<span>#e2e3e5</span></div>
+  <div class="swatch light" style="background:#c4c8cb">200<span>#c4c8cb</span></div>
+  <div class="swatch light" style="background:#a6aaad">300<span>#a6aaad</span></div>
+  <div class="swatch light" style="background:#868e96">400<span>#868e96</span></div>
+  <div class="swatch light" style="background:#6c757d">500<span>#6c757d</span></div>
+  <div class="swatch" style="background:#565e64">600<span>#565e64</span></div>
+  <div class="swatch" style="background:#343a40">700<span>#343a40</span></div>
+  <div class="swatch" style="background:#212529">800<span>#212529</span></div>
+  <div class="swatch" style="background:#141619">900<span>#141619</span></div>
+</div>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,172 @@
+.ud-settings-block-visibility__loading {
+	display: flex;
+	align-items: center;
+	gap: var(--ud-settings-space-150);
+	min-height: 80px;
+}
+
+.ud-settings-block-visibility__summary-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 0;
+}
+
+.ud-settings-block-visibility__summary-grid > div {
+	padding: 22px 24px;
+	border-right: 1px solid var(--ud-settings-color-border);
+	background: linear-gradient(
+		180deg,
+		var(--ud-settings-color-surface) 0%,
+		var(--ud-settings-color-surface-soft) 100%
+	);
+}
+
+.ud-settings-block-visibility__summary-grid > div:last-child {
+	border-right: 0;
+}
+
+.ud-settings-block-visibility__summary-number {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 34px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-block-visibility__summary-label {
+	display: block;
+	font-size: var(--ud-settings-font-size-md);
+	font-weight: 700;
+	line-height: 1.35;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-block-visibility__panel-header {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+	align-items: start;
+	gap: var(--ud-settings-space-300);
+	width: 100%;
+}
+
+.ud-settings-block-visibility__panel-header h2 {
+	margin: 0 0 var(--ud-settings-space-100);
+	font-size: var(--ud-settings-font-size-xl);
+	font-weight: 700;
+	line-height: 1.25;
+	color: var(--ud-settings-color-text);
+}
+
+.ud-settings-block-visibility__panel-header p {
+	margin: 0;
+	max-width: 760px;
+	font-size: var(--ud-settings-font-size-md);
+	line-height: 1.5;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-block-visibility__panel-tools {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ud-settings-space-150);
+}
+
+.ud-settings-block-visibility__panel-tools .components-search-control {
+	margin-bottom: 0;
+}
+
+.ud-settings-block-visibility__panel-tools .components-search-control__input {
+	border-radius: var(--ud-settings-radius-sm);
+}
+
+.ud-settings-block-visibility__panel-actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: var(--ud-settings-space-100);
+}
+
+.ud-settings-block-visibility__panel-actions .components-button {
+	white-space: nowrap;
+}
+
+.ud-settings-block-visibility__panel-hint {
+	margin: 0;
+	font-size: var(--ud-settings-font-size-sm);
+	line-height: 1.4;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-block-visibility__group {
+	margin-top: 34px;
+}
+
+.ud-settings-block-visibility__group:first-child {
+	margin-top: 0;
+}
+
+.ud-settings-block-visibility__group-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 14px;
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.3;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--ud-settings-color-muted);
+}
+
+.ud-settings-block-visibility__group-title::after {
+	content: "";
+	display: block;
+	flex: 1;
+	height: 1px;
+	background: var(--ud-settings-color-border);
+}
+
+.ud-settings-block-visibility__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+	gap: var(--ud-settings-space-150);
+}
+
+.ud-settings-block-visibility__empty {
+	margin: var(--ud-settings-space-300) 0 0;
+	padding: var(--ud-settings-space-350);
+	border: 1px dashed #c3c4c7;
+	border-radius: var(--ud-settings-radius-md);
+	background: var(--ud-settings-color-surface-soft);
+	text-align: center;
+	color: var(--ud-settings-color-muted);
+}
+
+@media (max-width: 960px) {
+	.ud-settings-block-visibility__summary-grid,
+	.ud-settings-block-visibility__panel-header {
+		grid-template-columns: 1fr;
+	}
+
+	.ud-settings-block-visibility__summary-grid > div {
+		border-right: 0;
+		border-bottom: 1px solid var(--ud-settings-color-border);
+	}
+
+	.ud-settings-block-visibility__summary-grid > div:last-child {
+		border-bottom: 0;
+	}
+
+	.ud-settings-block-visibility__panel-actions {
+		justify-content: flex-start;
+	}
+}
+
+@media (max-width: 782px) {
+	.ud-settings-block-visibility__list {
+		grid-template-columns: 1fr;
+	}
+}
