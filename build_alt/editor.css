@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/* =============================================================== *\
+   Editor Entry Point
+
+   Einstiegspunkt für alle Editor-Styles.
+
+   Wird nach build/editor.css kompiliert
+   und im Editor geladen.
+\* =============================================================== */
+body.wp-admin {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+}

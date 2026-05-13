@@ -134,3 +134,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Project specific
+bundled-plugins/ud-settings/node_modules/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor / local project settings
+.vscode/
+**/.vscode/

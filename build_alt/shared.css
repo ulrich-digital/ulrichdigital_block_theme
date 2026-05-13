@@ -1,0 +1,240 @@
+@charset "UTF-8";
+/* =============================================================== *\
+   Shared Entry Point
+
+   Styles, die im Frontend und im Editor geladen werden.
+
+   Wird nach build/shared.css kompiliert
+   und in beiden Kontexten verwendet.
+\* =============================================================== */
+/* =============================================================== *\
+   Variablen (Farben, Spacing, Radius, Shadow)
+\* =============================================================== */
+:root {
+  /* Theme Colors */
+  --ud-theme-100: #ffffff;
+  --ud-theme-200: #f7f6f3;
+  --ud-theme-300: #eeece6;
+  --ud-theme-400: #e2dfd6;
+  --ud-theme-500: #cfcbbf;
+  --ud-theme-600: #b5b1a4;
+  --ud-theme-700: #8f8b80;
+  --ud-theme-800: #6c6860;
+  --ud-theme-900: #4a4741;
+  /* Highlight Colors */
+  --ud-highlight-100: #e6f7f8;
+  --ud-highlight-200: #c8eef1;
+  --ud-highlight-300: #9fe0e6;
+  --ud-highlight-400: #63cdd8;
+  --ud-highlight-500: #1fb6c9;
+  --ud-highlight-600: #1695a5;
+  --ud-highlight-700: #117580;
+  --ud-highlight-800: #0b555c;
+  --ud-highlight-900: #06373b;
+  /* Shadows */
+  --ud-shadow-100: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --ud-shadow-200: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --ud-shadow-300: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --ud-shadow-400: 0 3px 6px rgba(0, 0, 0, 0.12);
+  --ud-shadow-500: 0 4px 8px rgba(0, 0, 0, 0.14);
+  --ud-shadow-700: 0 6px 12px rgba(0, 0, 0, 0.18);
+  --ud-shadow-900: 0 8px 16px rgba(0, 0, 0, 0.22);
+  /* =============================================================== *\
+         UI-Farbschema
+
+         Übersicht und Varianten:
+         ulrichdigital_block_theme > color_system.html
+     \* =============================================================== */
+  /* Positive (Green) */
+  --ud-positive-100: #f0f7ec;
+  --ud-positive-200: #e3f2dc;
+  --ud-positive-300: #cde8c1;
+  --ud-positive-400: #acd89d;
+  --ud-positive-500: #7fa765;
+  --ud-positive-600: #6f9657;
+  --ud-positive-700: #5b7c47;
+  --ud-positive-800: #3b5230;
+  --ud-positive-900: #192417;
+  /* Warning (Amber) */
+  --ud-warning-100: #fefdfb;
+  --ud-warning-200: #fef6e7;
+  --ud-warning-300: #ffedc7;
+  --ud-warning-400: #ffd386;
+  --ud-warning-500: #f5a623;
+  --ud-warning-600: #e08d00;
+  --ud-warning-700: #ad5700;
+  --ud-warning-800: #5f2a00;
+  --ud-warning-900: #341500;
+  /* Error (Red) */
+  --ud-error-100: #fffcfc;
+  --ud-error-200: #fef0ef;
+  --ud-error-300: #fdd8d7;
+  --ud-error-400: #fbb5b4;
+  --ud-error-500: #e5484d;
+  --ud-error-600: #d93d42;
+  --ud-error-700: #cd2b31;
+  --ud-error-800: #381316;
+  --ud-error-900: #1f0a0a;
+  /* Info (Blue) */
+  --ud-info-100: #fbfdff;
+  --ud-info-200: #edf6ff;
+  --ud-info-300: #e1f0ff;
+  --ud-info-400: #cee7fe;
+  --ud-info-500: #0091ff;
+  --ud-info-600: #0880ea;
+  --ud-info-700: #0b68cb;
+  --ud-info-800: #113264;
+  --ud-info-900: #0a0e1c;
+  /* Neutral (Gray) */
+  --ud-neutral-100: #fcfcfc;
+  --ud-neutral-200: #f8f9fa;
+  --ud-neutral-300: #f1f3f5;
+  --ud-neutral-400: #e6e8eb;
+  --ud-neutral-500: #9ba1a6;
+  --ud-neutral-600: #6c7278;
+  --ud-neutral-700: #464b50;
+  --ud-neutral-800: #11181c;
+  --ud-neutral-900: #0d0f11;
+  /* =============================================================== *\
+         Layout & Spacing
+     \* =============================================================== */
+  /* Radius */
+  --ud-radius-100: 8px;
+  --ud-radius-200: 10px;
+  --ud-radius-300: 12px;
+  --ud-radius-400: 18px;
+  --ud-radius-500: 24px;
+  --ud-radius-600: 36px;
+  --ud-radius-700: 42px;
+  --ud-radius-800: 48px;
+  --ud-radius-900: 1000px;
+  /* Theme Layout */
+  --ud-site-inline-spacing: 60px;
+}
+
+/* =============================================================== *\
+   Anpassungen für Mobile (Variablen)
+\* =============================================================== */
+@media screen and (max-width: 800px) {
+  :root {
+    --ud-site-inline-spacing: 30px;
+  }
+}
+/* =============================================================== *\
+   Shared Entry Point
+
+   Styles, die im Frontend und im Editor geladen werden.
+
+   Wird nach build/shared.css kompiliert
+   und in beiden Kontexten verwendet.
+\* =============================================================== */
+/* =============================================================== *\
+   Title
+\* =============================================================== */
+h1.wp-block-post-title {
+  font-size: 2.8rem;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+h1.wp-block-heading {
+  font-size: 2.8rem;
+  line-height: 1.1;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+h2.wp-block-heading {
+  font-size: 2.2rem;
+  line-height: 1.15;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+h3.wp-block-heading {
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h4.wp-block-heading {
+  font-size: 1.4rem;
+  line-height: 1.25;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+h5.wp-block-heading {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+h6.wp-block-heading {
+  font-size: 1.125rem;
+  line-height: 1.35;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* =============================================================== *\
+    Image
+    Block-Style: abgerundete Ecken
+\* =============================================================== */
+.wp-block-image.is-style-ud-rounded-24 img {
+  border-radius: 24px;
+}
+
+/* =============================================================== *\
+    Image-Caption
+\* =============================================================== */
+.wp-block-image .wp-element-caption {
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* =============================================================== *\
+   Button allgemein
+\* =============================================================== */
+:root :where(.wp-element-button, .wp-block-button__link),
+.wp-block-button__link {
+  width: fit-content;
+  padding: 0.6rem 1rem;
+  background: var(--ud-neutral-700);
+  border-radius: 100px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* =============================================================== *\
+    Button
+    Block-Style: Pfeil rechts oder links
+\* =============================================================== */
+.wp-block-button.is-style-ud-arrow-left .wp-block-button__link, .wp-block-button.is-style-ud-arrow-right .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  box-shadow: var(--ud-shadow-900);
+}
+.wp-block-button.is-style-ud-arrow-left .wp-block-button__link::before, .wp-block-button.is-style-ud-arrow-left .wp-block-button__link::after, .wp-block-button.is-style-ud-arrow-right .wp-block-button__link::before, .wp-block-button.is-style-ud-arrow-right .wp-block-button__link::after {
+  font-family: "Font Awesome 7 Sharp";
+  font-weight: 100;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+.wp-block-button.is-style-ud-arrow-left .wp-block-button__link::before {
+  content: "\f060";
+  padding-right: 0.5rem;
+}
+.wp-block-button.is-style-ud-arrow-left .wp-block-button__link:hover::before {
+  transform: translateX(-4px);
+}
+.wp-block-button.is-style-ud-arrow-right .wp-block-button__link::after {
+  content: "\f061";
+  padding-left: 0.5rem;
+}
+.wp-block-button.is-style-ud-arrow-right .wp-block-button__link:hover::after {
+  transform: translateX(4px);
+}
