@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'UD_SETTINGS_OPTION_EXCLUDED_BLOCKS', 'ud_settings_excluded_blocks' );
 define( 'UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS', 'ud_settings_excluded_block_variations' );
+define( 'UD_SETTINGS_OPTION_DISABLE_CORE_BLOCK_PATTERNS', 'ud_settings_disable_core_block_patterns' );
+define( 'UD_SETTINGS_OPTION_DISABLE_REMOTE_BLOCK_PATTERNS', 'ud_settings_disable_remote_block_patterns' );
 
 /**
  * Registriert die REST-Routen für diese Option.
@@ -46,6 +48,14 @@ function ud_settings_block_visibility_register_rest_routes() {
 						'type' => 'string',
 					),
 				),
+				'disableCoreBlockPatterns' => array(
+					'type'     => 'boolean',
+					'required' => false,
+				),
+				'disableRemoteBlockPatterns' => array(
+					'type'     => 'boolean',
+					'required' => false,
+				),
 			),
 		)
 	);
@@ -67,9 +77,11 @@ function ud_settings_block_visibility_rest_permissions() {
  * @return WP_REST_Response
  */
 function ud_settings_block_visibility_rest_get_data() {
-	$registered_blocks   = WP_Block_Type_Registry::get_instance()->get_all_registered();
-	$excluded_blocks     = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCKS, array() );
-	$excluded_variations = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS, array() );
+	$registered_blocks               = WP_Block_Type_Registry::get_instance()->get_all_registered();
+	$excluded_blocks                 = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCKS, array() );
+	$excluded_variations             = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS, array() );
+	$disable_core_block_patterns     = (bool) get_option( UD_SETTINGS_OPTION_DISABLE_CORE_BLOCK_PATTERNS, true );
+	$disable_remote_block_patterns   = (bool) get_option( UD_SETTINGS_OPTION_DISABLE_REMOTE_BLOCK_PATTERNS, true );
 
 	$blocks     = array();
 	$variations = ud_settings_block_visibility_get_variations_for_rest( $excluded_variations );
@@ -101,8 +113,10 @@ function ud_settings_block_visibility_rest_get_data() {
 		array(
 			'blocks'             => $blocks,
 			'excludedBlocks'     => array_values( $excluded_blocks ),
-			'variations'         => $variations,
-			'excludedVariations' => array_values( $excluded_variations ),
+			'variations'                   => $variations,
+			'excludedVariations'           => array_values( $excluded_variations ),
+			'disableCoreBlockPatterns'     => $disable_core_block_patterns,
+			'disableRemoteBlockPatterns'   => $disable_remote_block_patterns,
 		)
 	);
 }
@@ -115,8 +129,10 @@ function ud_settings_block_visibility_rest_get_data() {
  * @return WP_REST_Response
  */
 function ud_settings_block_visibility_rest_update_data( WP_REST_Request $request ) {
-	$excluded_blocks     = $request->get_param( 'excludedBlocks' );
-	$excluded_variations = $request->get_param( 'excludedVariations' );
+	$excluded_blocks               = $request->get_param( 'excludedBlocks' );
+	$excluded_variations           = $request->get_param( 'excludedVariations' );
+	$disable_core_block_patterns   = (bool) $request->get_param( 'disableCoreBlockPatterns' );
+	$disable_remote_block_patterns = (bool) $request->get_param( 'disableRemoteBlockPatterns' );
 
 	if ( ! is_array( $excluded_blocks ) ) {
 		$excluded_blocks = array();
@@ -131,12 +147,16 @@ function ud_settings_block_visibility_rest_update_data( WP_REST_Request $request
 
 	update_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCKS, $excluded_blocks );
 	update_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS, $excluded_variations );
+	update_option( UD_SETTINGS_OPTION_DISABLE_CORE_BLOCK_PATTERNS, $disable_core_block_patterns );
+	update_option( UD_SETTINGS_OPTION_DISABLE_REMOTE_BLOCK_PATTERNS, $disable_remote_block_patterns );
 
 	return rest_ensure_response(
 		array(
-			'success'            => true,
-			'excludedBlocks'     => $excluded_blocks,
-			'excludedVariations' => $excluded_variations,
+			'success'                    => true,
+			'excludedBlocks'             => $excluded_blocks,
+			'excludedVariations'         => $excluded_variations,
+			'disableCoreBlockPatterns'   => $disable_core_block_patterns,
+			'disableRemoteBlockPatterns' => $disable_remote_block_patterns,
 		)
 	);
 }
@@ -271,6 +291,33 @@ function ud_settings_block_visibility_filter_allowed_block_types( $allowed_block
 	return $allowed_block_types;
 }
 add_filter( 'allowed_block_types_all', 'ud_settings_block_visibility_filter_allowed_block_types', 20, 2 );
+
+/**
+ * Entfernt WordPress-Standardvorlagen, falls aktiviert.
+ */
+function ud_settings_block_visibility_maybe_disable_core_block_patterns() {
+	if ( get_option( UD_SETTINGS_OPTION_DISABLE_CORE_BLOCK_PATTERNS, true ) ) {
+		remove_theme_support( 'core-block-patterns' );
+	}
+}
+add_action( 'after_setup_theme', 'ud_settings_block_visibility_maybe_disable_core_block_patterns', 20 );
+
+/**
+ * Deaktiviert externe Vorlagen aus dem WordPress Pattern Directory, falls aktiviert.
+ *
+ * @param bool $should_load_remote_block_patterns Ob Remote-Vorlagen geladen werden sollen.
+ *
+ * @return bool
+ */
+function ud_settings_block_visibility_filter_remote_block_patterns( $should_load_remote_block_patterns ) {
+	if ( get_option( UD_SETTINGS_OPTION_DISABLE_REMOTE_BLOCK_PATTERNS, true ) ) {
+		return false;
+	}
+
+	return $should_load_remote_block_patterns;
+}
+add_filter( 'should_load_remote_block_patterns', 'ud_settings_block_visibility_filter_remote_block_patterns' );
+
 
 /**
  * Lädt das Block-Visibility-Script im Block-Editor.

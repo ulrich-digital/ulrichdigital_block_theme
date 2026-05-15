@@ -24,6 +24,8 @@ export default function BlockVisibilityOption() {
 	const [excludedBlocks, setExcludedBlocks] = useState([]);
 	const [variations, setVariations] = useState([]);
 	const [excludedVariations, setExcludedVariations] = useState([]);
+	const [disableCoreBlockPatterns, setDisableCoreBlockPatterns] = useState(true);
+	const [disableRemoteBlockPatterns, setDisableRemoteBlockPatterns] = useState(true);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
@@ -46,6 +48,8 @@ export default function BlockVisibilityOption() {
 			setExcludedBlocks(response.excludedBlocks || []);
 			setVariations(response.variations || []);
 			setExcludedVariations(response.excludedVariations || []);
+			setDisableCoreBlockPatterns(!!response.disableCoreBlockPatterns);
+			setDisableRemoteBlockPatterns(!!response.disableRemoteBlockPatterns);
 		} catch (error) {
 			setNotice({
 				status: "error",
@@ -192,11 +196,15 @@ export default function BlockVisibilityOption() {
 				data: {
 					excludedBlocks,
 					excludedVariations,
+					disableCoreBlockPatterns,
+					disableRemoteBlockPatterns,
 				},
 			});
 
 			setExcludedBlocks(response.excludedBlocks || []);
 			setExcludedVariations(response.excludedVariations || []);
+			setDisableCoreBlockPatterns(!!response.disableCoreBlockPatterns);
+			setDisableRemoteBlockPatterns(!!response.disableRemoteBlockPatterns);
 
 			setNotice({
 				status: "success",
@@ -226,7 +234,6 @@ export default function BlockVisibilityOption() {
 	const totalItemsCount = blocks.length + variations.length;
 	const excludedItemsCount =
 		excludedBlocks.length + excludedVariations.length;
-	const availableItemsCount = totalItemsCount - excludedItemsCount;
 
 	if (isLoading) {
 		return (
@@ -364,6 +371,107 @@ export default function BlockVisibilityOption() {
 										)}
 									</Button>
 								</div>
+							</div>
+						</section>
+
+						<section className="option-section">
+							<div className="section-header">
+								<div className="section-intro">
+									<h3 className="section-title">
+										{__("Vorlagen", "ud-settings")}
+									</h3>
+
+									<p className="section-description">
+										{__(
+											"Steuert, welche Vorlagen im Inserter angeboten werden. Eigene Vorlagen bleiben verfügbar.",
+											"ud-settings"
+										)}
+									</p>
+								</div>
+							</div>
+
+							<div className="visibility-list">
+								<label
+									className={
+										disableCoreBlockPatterns
+											? "visibility-item is-excluded"
+											: "visibility-item"
+									}
+								>
+									<div className="visibility-control">
+										<CheckboxControl
+											checked={disableCoreBlockPatterns}
+											onChange={
+												setDisableCoreBlockPatterns
+											}
+											__next40pxDefaultSize={true}
+											__nextHasNoMarginBottom={true}
+										/>
+									</div>
+
+									<div className="visibility-content">
+										<span className="visibility-title">
+											{__(
+												"WordPress-Standardvorlagen ausblenden",
+												"ud-settings"
+											)}
+										</span>
+
+										<span className="visibility-description">
+											{__(
+												"Entfernt die von WordPress mitgelieferten Standardvorlagen aus dem Inserter.",
+												"ud-settings"
+											)}
+										</span>
+									</div>
+
+									<span className="visibility-meta">
+										{getVisibilityStatus(
+											disableCoreBlockPatterns
+										)}
+									</span>
+								</label>
+
+								<label
+									className={
+										disableRemoteBlockPatterns
+											? "visibility-item is-excluded"
+											: "visibility-item"
+									}
+								>
+									<div className="visibility-control">
+										<CheckboxControl
+											checked={disableRemoteBlockPatterns}
+											onChange={
+												setDisableRemoteBlockPatterns
+											}
+											__next40pxDefaultSize={true}
+											__nextHasNoMarginBottom={true}
+										/>
+									</div>
+
+									<div className="visibility-content">
+										<span className="visibility-title">
+											{__(
+												"Externe Vorlagen ausblenden",
+												"ud-settings"
+											)}
+										</span>
+
+										<span className="visibility-description">
+											{__(
+												"Verhindert Vorlagen aus dem externen WordPress Pattern Directory.",
+												"ud-settings"
+											)}
+										</span>
+									</div>
+
+									<span className="visibility-meta">
+										{getVisibilityStatus(
+											disableRemoteBlockPatterns
+										)}
+									</span>
+								</label>
 							</div>
 						</section>
 

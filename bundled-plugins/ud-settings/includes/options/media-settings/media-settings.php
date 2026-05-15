@@ -17,14 +17,14 @@ define('UD_SETTINGS_OPTION_MEDIA_SETTINGS', 'ud_settings_media_settings');
  */
 function ud_settings_media_settings_get_default_settings() {
     return array(
-        'allowSvgUpload'              => true,
-        'limitLargeImagesTo2560'      => true,
-        'disableBigImageThreshold'    => false,
-        'useMaxImageSizeInEditor'     => true,
-        'convertJpegTo'               => 'webp',
+        'allowSvgUpload'                => true,
+        'limitLargeImagesTo2560'        => true,
+        'disableBigImageThreshold'      => false,
+        'useMaxImageSizeInEditor'       => true,
+        'hideOpenverseMediaCategory'    => true,
+        'convertJpegTo'                 => 'webp',
     );
 }
-
 /**
  * Gibt die gespeicherten Medien-Einstellungen zurück.
  *
@@ -81,6 +81,7 @@ function ud_settings_media_settings_sanitize_settings($settings) {
         'limitLargeImagesTo2560'      => $limit_large_images_to_2560,
         'disableBigImageThreshold'    => $disable_big_image_threshold,
         'useMaxImageSizeInEditor'     => ! empty($settings['useMaxImageSizeInEditor']),
+        'hideOpenverseMediaCategory'  => ! empty($settings['hideOpenverseMediaCategory']),
         'convertJpegTo'               => $convert_jpeg_to,
     );
 }
@@ -167,18 +168,18 @@ function ud_settings_media_settings_rest_update_data(WP_REST_Request $request) {
  *
  * @return int|false
  */
-function ud_settings_media_settings_big_image_size_threshold( $threshold ) {
-	$settings = ud_settings_media_settings_get_settings();
+function ud_settings_media_settings_big_image_size_threshold($threshold) {
+    $settings = ud_settings_media_settings_get_settings();
 
-	if ( ! empty( $settings['disableBigImageThreshold'] ) ) {
-		return false;
-	}
+    if (! empty($settings['disableBigImageThreshold'])) {
+        return false;
+    }
 
-	if ( ! empty( $settings['limitLargeImagesTo2560'] ) ) {
-		return 2560;
-	}
+    if (! empty($settings['limitLargeImagesTo2560'])) {
+        return 2560;
+    }
 
-	return $threshold;
+    return $threshold;
 }
 add_filter('big_image_size_threshold', 'ud_settings_media_settings_big_image_size_threshold');
 
@@ -218,11 +219,13 @@ add_filter('image_size_names_choose', 'ud_settings_media_settings_image_size_nam
 function ud_settings_media_settings_block_editor_settings($settings) {
     $media_settings = ud_settings_media_settings_get_settings();
 
-    if (empty($media_settings['useMaxImageSizeInEditor'])) {
-        return $settings;
+    if (! empty($media_settings['useMaxImageSizeInEditor'])) {
+        $settings['imageDefaultSize'] = 'maximale-groesse';
     }
 
-    $settings['imageDefaultSize'] = 'maximale-groesse';
+    if (! empty($media_settings['hideOpenverseMediaCategory'])) {
+        $settings['enableOpenverseMediaCategory'] = false;
+    }
 
     return $settings;
 }

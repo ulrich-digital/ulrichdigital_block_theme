@@ -271,6 +271,17 @@ export default function RevisionsOption() {
 								)}
 							</span>
 						</div>
+
+						<div className="setting-note setting-note--warning">
+							<p>
+								{__(
+									"Technischer Hinweis: Diese Funktion bereinigt bestehende Revisionen nachträglich. Wie viele Revisionen WordPress künftig speichert, kann zusätzlich in der wp-config.php begrenzt werden.",
+									"ud-settings"
+								)}
+							</p>
+
+							<code>define( 'WP_POST_REVISIONS', 10 );</code>
+						</div>
 					</div>
 
 					<div className="option-actions">

@@ -18,6 +18,7 @@ const DEFAULT_SETTINGS = {
 	limitLargeImagesTo2560: false,
 	disableBigImageThreshold: false,
 	useMaxImageSizeInEditor: false,
+	hideOpenverseMediaCategory: true,
 	convertJpegTo: "",
 };
 
@@ -32,7 +33,10 @@ const BOOLEAN_OPTIONS = [
 	},
 	{
 		key: "limitLargeImagesTo2560",
-		title: __("Grosse Bilder automatisch auf 2560 px begrenzen", "ud-settings"),
+		title: __(
+			"Grosse Bilder automatisch auf 2560 px begrenzen",
+			"ud-settings"
+		),
 		description: __(
 			"Skaliert sehr grosse Uploads automatisch auf maximal 2560 px herunter. Das reduziert Dateigrösse und Speicherverbrauch.",
 			"ud-settings"
@@ -40,7 +44,10 @@ const BOOLEAN_OPTIONS = [
 	},
 	{
 		key: "disableBigImageThreshold",
-		title: __("WordPress-Skalierung für grosse Bilder deaktivieren", "ud-settings"),
+		title: __(
+			"WordPress-Skalierung für grosse Bilder deaktivieren",
+			"ud-settings"
+		),
 		description: __(
 			"Deaktiviert die automatische WordPress-Begrenzung für sehr grosse Bilder. Die Originaldatei bleibt dadurch unverändert gross. Nur verwenden, wenn die Originalgrösse bewusst erhalten bleiben soll.",
 			"ud-settings"
@@ -48,9 +55,20 @@ const BOOLEAN_OPTIONS = [
 	},
 	{
 		key: "useMaxImageSizeInEditor",
-		title: __("Im Editor standardmässig „Maximale Grösse“ einfügen", "ud-settings"),
+		title: __(
+			"Im Editor standardmässig „Maximale Grösse“ einfügen",
+			"ud-settings"
+		),
 		description: __(
 			"Setzt beim Einfügen von Bildern im Block Editor automatisch die Bildgrösse „Maximale Grösse“.",
+			"ud-settings"
+		),
+	},
+	{
+		key: "hideOpenverseMediaCategory",
+		title: __("Openverse aus Medien entfernen", "ud-settings"),
+		description: __(
+			"Blendet Openverse und damit die externe Bildsuche im Medien-Tab des Block-Inserters aus.",
 			"ud-settings"
 		),
 	},
@@ -83,6 +101,7 @@ function normalizeSettings(settings = {}) {
 		limitLargeImagesTo2560: !!settings.limitLargeImagesTo2560,
 		disableBigImageThreshold: !!settings.disableBigImageThreshold,
 		useMaxImageSizeInEditor: !!settings.useMaxImageSizeInEditor,
+		hideOpenverseMediaCategory: !!settings.hideOpenverseMediaCategory,
 		convertJpegTo,
 	};
 }
@@ -317,7 +336,9 @@ export default function MediaSettingsOption() {
 							</div>
 
 							<span className="setting-meta">
-								{getJpegConversionStatus(settings.convertJpegTo)}
+								{getJpegConversionStatus(
+									settings.convertJpegTo
+								)}
 							</span>
 						</div>
 					</div>

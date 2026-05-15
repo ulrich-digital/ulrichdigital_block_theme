@@ -1,4 +1,19 @@
 /* =============================================================== *\
+   UD Settings Admin
+
+   Architektur:
+   - .ud-settings-app: Grundstruktur, Header, Navigation und Hauptbereich
+   - .ud-settings-section: einzelne Einstellungsbereiche
+   - .ud-settings-card: wiederverwendbare Einstellungskarten
+   - .ud-settings-choice: Auswahl-, Toggle- und Optionszeilen
+   - .ud-settings-actions: Speicher-, Reload- und Aktionsbereiche
+   - .ud-settings-state: Ladezustände, Hinweise und Fehlermeldungen
+
+   Die Oberfläche ist modular aufgebaut und nutzt möglichst bestehende
+   Theme-Variablen für Abstände, Farben, Radien und Schatten.
+\* =============================================================== */
+
+/* =============================================================== *\
    UD Settings App
 \* =============================================================== */
 
@@ -407,6 +422,40 @@
 			}
 		}
 	}
+
+.setting-note {
+	margin-top: var(--ud-space-400);
+	border: 1px solid var(--ud-neutral-200);
+	padding: var(--ud-space-400);
+	background: var(--ud-neutral-50);
+	border-radius: var(--ud-radius-300);
+
+	p {
+		margin: 0 0 var(--ud-space-200);
+	}
+
+	code {
+		display: inline-block;
+		padding: 4px 8px;
+		border-radius: var(--ud-radius-100);
+		font-size: 13px;
+	}
+}
+
+.setting-note--warning {
+	border-color: var(--ud-warning-300);
+	background: var(--ud-warning-100);
+	color: var(--ud-warning-900);
+
+	p,
+	code {
+		color: var(--ud-warning-900);
+	}
+
+	code {
+		background: rgba(255, 255, 255, 0.65);
+	}
+}
 
 	.section-header {
 		display: flex;
