@@ -3,7 +3,6 @@ import {
 	Button,
 	Card,
 	CardBody,
-	CardHeader,
 	CheckboxControl,
 	Notice,
 	SearchControl,
@@ -13,6 +12,12 @@ import { useEffect, useMemo, useState } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
 
 const REST_ENDPOINT = "/ud-settings/v1/block-visibility";
+
+function getVisibilityStatus(isExcluded) {
+	return isExcluded
+		? __("Ausgeschlossen", "ud-settings")
+		: __("Verfügbar", "ud-settings");
+}
 
 export default function BlockVisibilityOption() {
 	const [blocks, setBlocks] = useState([]);
@@ -133,7 +138,7 @@ export default function BlockVisibilityOption() {
 		});
 	};
 
-	const excludeVisibleBlocks = () => {
+	const excludeVisibleItems = () => {
 		const visibleBlockNames = filteredBlocks.map((block) => block.name);
 		const visibleVariationIds = filteredVariations.map(
 			(variation) => variation.id
@@ -152,7 +157,7 @@ export default function BlockVisibilityOption() {
 		});
 	};
 
-	const allowVisibleBlocks = () => {
+	const allowVisibleItems = () => {
 		const visibleBlockNames = filteredBlocks.map((block) => block.name);
 		const visibleVariationIds = filteredVariations.map(
 			(variation) => variation.id
@@ -169,6 +174,11 @@ export default function BlockVisibilityOption() {
 				return !visibleVariationIds.includes(variationId);
 			});
 		});
+	};
+
+	const resetSelection = () => {
+		setExcludedBlocks([]);
+		setExcludedVariations([]);
 	};
 
 	const saveSettings = async () => {
@@ -210,28 +220,28 @@ export default function BlockVisibilityOption() {
 		}
 	};
 
-	const resetSelection = () => {
-		setExcludedBlocks([]);
-		setExcludedVariations([]);
-	};
-
 	const hasFilteredItems =
 		filteredBlocks.length > 0 || filteredVariations.length > 0;
 
 	const totalItemsCount = blocks.length + variations.length;
-
 	const excludedItemsCount =
 		excludedBlocks.length + excludedVariations.length;
-
 	const availableItemsCount = totalItemsCount - excludedItemsCount;
 
 	if (isLoading) {
 		return (
 			<Card className="ud-settings-card">
 				<CardBody>
-					<div className="ud-settings-block-visibility__loading">
-						<Spinner />
-						<p>{__("Blockliste wird geladen ...", "ud-settings")}</p>
+					<div className="ud-settings-option ud-settings-option--block-visibility">
+						<div className="option-loading">
+							<Spinner />
+							<p>
+								{__(
+									"Blockliste wird geladen ...",
+									"ud-settings"
+								)}
+							</p>
+						</div>
 					</div>
 				</CardBody>
 			</Card>
@@ -239,278 +249,328 @@ export default function BlockVisibilityOption() {
 	}
 
 	return (
-		<>
-			<Card className="ud-settings-card ud-settings-block-visibility__summary">
-				<CardBody>
-					<div className="ud-settings-block-visibility__summary-grid">
-						<div>
-							<span className="ud-settings-block-visibility__summary-number">
-								{totalItemsCount}
-							</span>
-							<span className="ud-settings-block-visibility__summary-label">
-								{__("Einträge", "ud-settings")}
-							</span>
-						</div>
+		<Card className="ud-settings-card">
+			<CardBody>
+				<div className="ud-settings-option ud-settings-option--block-visibility">
+					<header className="option-header">
+						<div className="option-intro">
+							<h2 className="option-title">
+								{__("Block-Sichtbarkeit", "ud-settings")}
+							</h2>
 
-						<div>
-							<span className="ud-settings-block-visibility__summary-number">
-								{excludedItemsCount}
-							</span>
-							<span className="ud-settings-block-visibility__summary-label">
-								{__("ausgeschlossen", "ud-settings")}
-							</span>
-						</div>
-
-						<div>
-							<span className="ud-settings-block-visibility__summary-number">
-								{availableItemsCount}
-							</span>
-							<span className="ud-settings-block-visibility__summary-label">
-								{__("verfügbar", "ud-settings")}
-							</span>
-						</div>
-					</div>
-				</CardBody>
-			</Card>
-
-			<Card className="ud-settings-card">
-				<CardHeader>
-					<div className="ud-settings-block-visibility__panel-header">
-						<div>
-							<h2>{__("Block-Sichtbarkeit", "ud-settings")}</h2>
-							<p>
+							<p className="option-description">
 								{__(
-									"Aktivierte Checkboxen bedeuten: Dieser Block oder diese Block-Variation wird im Editor nicht angeboten.",
+									"Aktivierte Checkboxen bedeuten: Dieser Block oder diese Block-Variation wird im Editor nicht angeboten. Bestehende Inhalte bleiben erhalten.",
 									"ud-settings"
 								)}
 							</p>
 						</div>
 
-						<div className="ud-settings-block-visibility__panel-tools">
-							<SearchControl
-								label={__("Blöcke suchen", "ud-settings")}
-								value={searchTerm}
-								onChange={setSearchTerm}
-								placeholder={__(
-									"Block suchen …",
-									"ud-settings"
+						<div className="option-stats">
+							<span className="option-meta">
+								{sprintf(
+									__("%d ausgeschlossen", "ud-settings"),
+									excludedItemsCount
 								)}
-								__next40pxDefaultSize={true}
-								__nextHasNoMarginBottom={true}
-							/>
-
-							<div className="ud-settings-block-visibility__panel-actions">
-								<Button
-									variant="secondary"
-									onClick={excludeVisibleBlocks}
-									disabled={isSaving || !hasFilteredItems}
-									__next40pxDefaultSize={true}
-								>
-									{__("Alle ausschliessen", "ud-settings")}
-								</Button>
-
-								<Button
-									variant="secondary"
-									onClick={allowVisibleBlocks}
-									disabled={isSaving || !hasFilteredItems}
-									__next40pxDefaultSize={true}
-								>
-									{__("Alle freigeben", "ud-settings")}
-								</Button>
-
-								<Button
-									variant="primary"
-									onClick={saveSettings}
-									isBusy={isSaving}
-									disabled={isSaving}
-									__next40pxDefaultSize={true}
-								>
-									{__("Speichern", "ud-settings")}
-								</Button>
-
-								<Button
-									variant="tertiary"
-									onClick={resetSelection}
-									disabled={isSaving || excludedItemsCount === 0}
-									__next40pxDefaultSize={true}
-								>
-									{__("Auswahl zurücksetzen", "ud-settings")}
-								</Button>
-							</div>
-
-							{searchTerm && (
-								<p className="ud-settings-block-visibility__panel-hint">
-									{__(
-										"Bei aktiver Suche gilt die Aktion nur für die gefilterten Einträge.",
-										"ud-settings"
-									)}
-								</p>
-							)}
+							</span>
 						</div>
-					</div>
-				</CardHeader>
+					</header>
 
-				<CardBody>
 					{notice && (
-						<Notice
-							status={notice.status}
-							onRemove={() => setNotice(null)}
-						>
-							{notice.message}
-						</Notice>
+						<div className="option-notice">
+							<Notice
+								status={notice.status}
+								onRemove={() => setNotice(null)}
+							>
+								{notice.message}
+							</Notice>
+						</div>
 					)}
 
-					{Object.entries(groupedBlocks).map(
-						([category, categoryBlocks]) => (
-							<div
-								className="ud-settings-block-visibility__group"
-								key={category}
-							>
-								<h3 className="ud-settings-block-visibility__group-title">
-									{category}
-								</h3>
+					<div className="option-body">
+						<section className="option-section">
+							<div className="section-header">
+								<div className="section-intro">
+									<h3 className="section-title">
+										{__(
+											"Filter und Aktionen",
+											"ud-settings"
+										)}
+									</h3>
 
-								<div className="ud-settings-block-visibility__list">
-									{categoryBlocks.map((block) => {
+									<p className="section-description">
+										{__(
+											"Suche nach Blöcken oder Variationen. Bei aktiver Suche gelten Massenaktionen nur für die gefilterten Einträge.",
+											"ud-settings"
+										)}
+									</p>
+								</div>
+							</div>
+
+							<div className="visibility-toolbar">
+								<div className="visibility-search">
+									<SearchControl
+										label={__(
+											"Blöcke suchen",
+											"ud-settings"
+										)}
+										value={searchTerm}
+										onChange={setSearchTerm}
+										placeholder={__(
+											"Block suchen …",
+											"ud-settings"
+										)}
+										__next40pxDefaultSize={true}
+										__nextHasNoMarginBottom={true}
+									/>
+								</div>
+
+								<div className="visibility-actions">
+									<Button
+										variant="secondary"
+										onClick={excludeVisibleItems}
+										disabled={isSaving || !hasFilteredItems}
+										__next40pxDefaultSize={true}
+										__nextHasNoMarginBottom={true}
+									>
+										{__(
+											"Alle ausschliessen",
+											"ud-settings"
+										)}
+									</Button>
+
+									<Button
+										variant="secondary"
+										onClick={allowVisibleItems}
+										disabled={isSaving || !hasFilteredItems}
+										__next40pxDefaultSize={true}
+										__nextHasNoMarginBottom={true}
+									>
+										{__("Alle freigeben", "ud-settings")}
+									</Button>
+
+									<Button
+										variant="tertiary"
+										onClick={resetSelection}
+										disabled={
+											isSaving || excludedItemsCount === 0
+										}
+										__next40pxDefaultSize={true}
+										__nextHasNoMarginBottom={true}
+									>
+										{__(
+											"Auswahl zurücksetzen",
+											"ud-settings"
+										)}
+									</Button>
+								</div>
+							</div>
+						</section>
+
+						{Object.entries(groupedBlocks).map(
+							([category, categoryBlocks]) => (
+								<section
+									className="option-section"
+									key={category}
+								>
+									<div className="section-header">
+										<div className="section-intro">
+											<h3 className="section-title">
+												{category}
+											</h3>
+
+											<p className="section-description">
+												{sprintf(
+													__(
+														"%d Blöcke in dieser Kategorie.",
+														"ud-settings"
+													),
+													categoryBlocks.length
+												)}
+											</p>
+										</div>
+									</div>
+
+									<div className="visibility-list">
+										{categoryBlocks.map((block) => {
+											const isExcluded =
+												excludedBlocks.includes(
+													block.name
+												);
+
+											return (
+												<label
+													className={
+														isExcluded
+															? "visibility-item is-excluded"
+															: "visibility-item"
+													}
+													key={block.name}
+												>
+													<div className="visibility-control">
+														<CheckboxControl
+															checked={isExcluded}
+															onChange={() =>
+																toggleExcludedBlock(
+																	block.name
+																)
+															}
+															__next40pxDefaultSize={
+																true
+															}
+															__nextHasNoMarginBottom={
+																true
+															}
+														/>
+													</div>
+
+													<div className="visibility-content">
+														<span className="visibility-title">
+															{block.title}
+														</span>
+
+														<code className="visibility-code">
+															{block.name}
+														</code>
+
+														{block.description && (
+															<span className="visibility-description">
+																{
+																	block.description
+																}
+															</span>
+														)}
+													</div>
+
+													<span className="visibility-meta">
+														{getVisibilityStatus(
+															isExcluded
+														)}
+													</span>
+												</label>
+											);
+										})}
+									</div>
+								</section>
+							)
+						)}
+
+						{filteredVariations.length > 0 && (
+							<section className="option-section">
+								<div className="section-header">
+									<div className="section-intro">
+										<h3 className="section-title">
+											{__(
+												"Block-Variationen",
+												"ud-settings"
+											)}
+										</h3>
+
+										<p className="section-description">
+											{sprintf(
+												__(
+													"%d Variationen werden aktuell angezeigt.",
+													"ud-settings"
+												),
+												filteredVariations.length
+											)}
+										</p>
+									</div>
+								</div>
+
+								<div className="visibility-list">
+									{filteredVariations.map((variation) => {
 										const isExcluded =
-											excludedBlocks.includes(block.name);
+											excludedVariations.includes(
+												variation.id
+											);
 
 										return (
 											<label
 												className={
 													isExcluded
-														? "ud-settings-choice is-excluded"
-														: "ud-settings-choice"
+														? "visibility-item is-excluded"
+														: "visibility-item"
 												}
-												key={block.name}
+												key={variation.id}
 											>
-												<CheckboxControl
-													checked={isExcluded}
-													onChange={() =>
-														toggleExcludedBlock(
-															block.name
-														)
-													}
-													__nextHasNoMarginBottom={
-														true
-													}
-												/>
+												<div className="visibility-control">
+													<CheckboxControl
+														checked={isExcluded}
+														onChange={() =>
+															toggleExcludedVariation(
+																variation.id
+															)
+														}
+														__next40pxDefaultSize={
+															true
+														}
+														__nextHasNoMarginBottom={
+															true
+														}
+													/>
+												</div>
 
-												<span className="ud-settings-choice__content">
-													<span className="ud-settings-choice__title">
-														{block.title}
+												<div className="visibility-content">
+													<span className="visibility-title">
+														{variation.title}
 													</span>
 
-													<code className="ud-settings-choice__code">
-														{block.name}
+													<code className="visibility-code">
+														{variation.blockName}::
+														{
+															variation.variationName
+														}
 													</code>
 
-													{block.description && (
-														<span className="ud-settings-choice__description">
-															{block.description}
+													{variation.description && (
+														<span className="visibility-description">
+															{
+																variation.description
+															}
 														</span>
 													)}
-												</span>
+												</div>
 
-												<span className="ud-settings-status">
-													{isExcluded
-														? __(
-																"Ausgeschlossen",
-																"ud-settings"
-														  )
-														: __(
-																"Verfügbar",
-																"ud-settings"
-														  )}
+												<span className="visibility-meta">
+													{getVisibilityStatus(
+														isExcluded
+													)}
 												</span>
 											</label>
 										);
 									})}
 								</div>
-							</div>
-						)
-					)}
+							</section>
+						)}
 
-					{filteredVariations.length > 0 && (
-						<div className="ud-settings-block-visibility__group">
-							<h3 className="ud-settings-block-visibility__group-title">
-								{__("Block-Variationen", "ud-settings")}
-							</h3>
+						{!hasFilteredItems && (
+							<p className="option-empty">
+								{sprintf(
+									__(
+										"Keine Einträge für „%s“ gefunden.",
+										"ud-settings"
+									),
+									searchTerm
+								)}
+							</p>
+						)}
+					</div>
 
-							<div className="ud-settings-block-visibility__list">
-								{filteredVariations.map((variation) => {
-									const isExcluded =
-										excludedVariations.includes(
-											variation.id
-										);
-
-									return (
-										<label
-											className={
-												isExcluded
-													? "ud-settings-choice is-excluded"
-													: "ud-settings-choice"
-											}
-											key={variation.id}
-										>
-											<CheckboxControl
-												checked={isExcluded}
-												onChange={() =>
-													toggleExcludedVariation(
-														variation.id
-													)
-												}
-												__nextHasNoMarginBottom={true}
-											/>
-
-											<span className="ud-settings-choice__content">
-												<span className="ud-settings-choice__title">
-													{variation.title}
-												</span>
-
-												<code className="ud-settings-choice__code">
-													{variation.blockName}::
-													{variation.variationName}
-												</code>
-
-												{variation.description && (
-													<span className="ud-settings-choice__description">
-														{variation.description}
-													</span>
-												)}
-											</span>
-
-											<span className="ud-settings-status">
-												{isExcluded
-													? __(
-															"Ausgeschlossen",
-															"ud-settings"
-													  )
-													: __(
-															"Verfügbar",
-															"ud-settings"
-													  )}
-											</span>
-										</label>
-									);
-								})}
-							</div>
-						</div>
-					)}
-
-					{!hasFilteredItems && (
-						<p className="ud-settings-block-visibility__empty">
-							{sprintf(
-								__(
-									"Keine Einträge für '%s' gefunden.",
-									"ud-settings"
-								),
-								searchTerm
-							)}
-						</p>
-					)}
-				</CardBody>
-			</Card>
-		</>
+					<div className="option-actions">
+						<Button
+							variant="primary"
+							onClick={saveSettings}
+							isBusy={isSaving}
+							disabled={isSaving}
+							__next40pxDefaultSize={true}
+							__nextHasNoMarginBottom={true}
+						>
+							{__("Speichern", "ud-settings")}
+						</Button>
+					</div>
+				</div>
+			</CardBody>
+		</Card>
 	);
 }

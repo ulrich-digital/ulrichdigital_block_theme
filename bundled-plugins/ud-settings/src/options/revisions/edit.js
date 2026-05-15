@@ -65,9 +65,7 @@ export default function RevisionsOption() {
 		setSettings((currentSettings) => {
 			return {
 				...currentSettings,
-				keepRevisions: Number.isFinite(keepRevisions)
-					? keepRevisions
-					: "",
+				keepRevisions: Number.isFinite(keepRevisions) ? keepRevisions : "",
 			};
 		});
 	};
@@ -177,10 +175,7 @@ export default function RevisionsOption() {
 				status: "error",
 				message:
 					error?.message ||
-					__(
-						"Die Revisionen konnten nicht gelöscht werden.",
-						"ud-settings"
-					),
+					__("Die Revisionen konnten nicht gelöscht werden.", "ud-settings"),
 			});
 		} finally {
 			setIsCleaning(false);
@@ -191,14 +186,16 @@ export default function RevisionsOption() {
 		return (
 			<Card className="ud-settings-card">
 				<CardBody>
-					<div className="ud-settings-revisions__loading">
-						<Spinner />
-						<p>
-							{__(
-								"Revisionen-Einstellung wird geladen ...",
-								"ud-settings"
-							)}
-						</p>
+					<div className="ud-settings-option ud-settings-option--revisions">
+						<div className="option-loading">
+							<Spinner />
+							<p>
+								{__(
+									"Revisionen-Einstellung wird geladen ...",
+									"ud-settings"
+								)}
+							</p>
+						</div>
 					</div>
 				</CardBody>
 			</Card>
@@ -208,24 +205,82 @@ export default function RevisionsOption() {
 	return (
 		<Card className="ud-settings-card">
 			<CardBody>
-				<div className="ud-settings-section-header">
-					<div>
-						<h2>{__("Revisionen", "ud-settings")}</h2>
-						<p>
-							{__(
-								"Hier können alte WordPress-Revisionen bereinigt werden. Pro Inhalt bleibt nur die gewünschte Anzahl der neuesten Revisionen erhalten.",
-								"ud-settings"
-							)}
-						</p>
+				<div className="ud-settings-option ud-settings-option--revisions">
+					<header className="option-header">
+						<div className="option-intro">
+							<h2 className="option-title">
+								{__("Revisionen", "ud-settings")}
+							</h2>
+
+							<p className="option-description">
+								{__(
+									"Hier können alte WordPress-Revisionen bereinigt werden. Pro Inhalt bleibt nur die gewünschte Anzahl der neuesten Revisionen erhalten.",
+									"ud-settings"
+								)}
+							</p>
+						</div>
+
+						<span className="option-meta">
+							{sprintf(__("%d vorhanden", "ud-settings"), revisionCount)}
+						</span>
+					</header>
+
+					{notice && (
+						<div className="option-notice">
+							<Notice
+								status={notice.status}
+								onRemove={() => setNotice(null)}
+							>
+								{notice.message}
+							</Notice>
+						</div>
+					)}
+
+					<div className="option-body">
+						<div className="setting-row">
+							<div className="setting-content">
+								<h3 className="setting-title">
+									{__("Revisionen pro Inhalt behalten", "ud-settings")}
+								</h3>
+
+								<p className="setting-description">
+									{__(
+										"Beim Löschen bleiben pro Beitrag, Seite oder individuellem Inhaltstyp die neuesten Revisionen in dieser Anzahl erhalten. Ältere Revisionen werden dauerhaft gelöscht.",
+										"ud-settings"
+									)}
+								</p>
+							</div>
+
+							<div className="setting-control">
+								<TextControl
+									type="number"
+									min={1}
+									max={100}
+									step={1}
+									value={settings.keepRevisions}
+									onChange={updateKeepRevisions}
+									__next40pxDefaultSize={true}
+									__nextHasNoMarginBottom={true}
+								/>
+							</div>
+
+							<span className="setting-meta">
+								{sprintf(
+									__("%d behalten", "ud-settings"),
+									getSanitizedKeepRevisions()
+								)}
+							</span>
+						</div>
 					</div>
 
-					<div className="ud-settings-revisions__actions">
+					<div className="option-actions">
 						<Button
 							variant="secondary"
 							onClick={saveSettings}
 							isBusy={isSaving}
 							disabled={isSaving || isCleaning}
 							__next40pxDefaultSize={true}
+							__nextHasNoMarginBottom={true}
 						>
 							{__("Speichern", "ud-settings")}
 						</Button>
@@ -236,63 +291,11 @@ export default function RevisionsOption() {
 							isBusy={isCleaning}
 							disabled={isSaving || isCleaning}
 							__next40pxDefaultSize={true}
+							__nextHasNoMarginBottom={true}
 						>
 							{__("Revisionen jetzt löschen", "ud-settings")}
 						</Button>
 					</div>
-				</div>
-
-				{notice && (
-					<Notice
-						status={notice.status}
-						onRemove={() => setNotice(null)}
-					>
-						{notice.message}
-					</Notice>
-				)}
-
-				<div className="ud-settings-revisions__summary">
-					<span className="ud-settings-revisions__summary-number">
-						{revisionCount}
-					</span>
-					<span className="ud-settings-revisions__summary-label">
-						{__("vorhandene Revisionen", "ud-settings")}
-					</span>
-				</div>
-
-				<div className="ud-settings-choice ud-settings-revisions__setting">
-					<div className="ud-settings-revisions__spacer" />
-
-					<div className="ud-settings-choice__content">
-						<span className="ud-settings-choice__title">
-							{__("Revisionen pro Inhalt behalten", "ud-settings")}
-						</span>
-
-						<span className="ud-settings-choice__description">
-							{__(
-								"Beim Löschen bleiben pro Beitrag, Seite oder individuellem Inhaltstyp die neuesten Revisionen in dieser Anzahl erhalten. Ältere Revisionen werden dauerhaft gelöscht.",
-								"ud-settings"
-							)}
-						</span>
-
-						<TextControl
-							type="number"
-							min={1}
-							max={100}
-							step={1}
-							value={settings.keepRevisions}
-							onChange={updateKeepRevisions}
-							__next40pxDefaultSize={true}
-							__nextHasNoMarginBottom={true}
-						/>
-					</div>
-
-					<span className="ud-settings-status">
-						{sprintf(
-							__("%d behalten", "ud-settings"),
-							getSanitizedKeepRevisions()
-						)}
-					</span>
 				</div>
 			</CardBody>
 		</Card>
