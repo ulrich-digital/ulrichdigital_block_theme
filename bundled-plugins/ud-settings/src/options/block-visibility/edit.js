@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
 
 const REST_ENDPOINT = "/ud-settings/v1/block-visibility";
+const USED_BLOCKS_ENDPOINT = "/ud-settings/v1/block-visibility/used-blocks";
 
 function getVisibilityStatus(isExcluded) {
 	return isExcluded
@@ -24,11 +25,11 @@ export default function BlockVisibilityOption() {
 	const [excludedBlocks, setExcludedBlocks] = useState([]);
 	const [variations, setVariations] = useState([]);
 	const [excludedVariations, setExcludedVariations] = useState([]);
-	const [disableCoreBlockPatterns, setDisableCoreBlockPatterns] = useState(true);
-	const [disableRemoteBlockPatterns, setDisableRemoteBlockPatterns] = useState(true);
+
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSaving, setIsSaving] = useState(false);
+	const [isAnalyzingUsedBlocks, setIsAnalyzingUsedBlocks] = useState(false);
 	const [notice, setNotice] = useState(null);
 
 	useEffect(() => {
@@ -48,8 +49,6 @@ export default function BlockVisibilityOption() {
 			setExcludedBlocks(response.excludedBlocks || []);
 			setVariations(response.variations || []);
 			setExcludedVariations(response.excludedVariations || []);
-			setDisableCoreBlockPatterns(!!response.disableCoreBlockPatterns);
-			setDisableRemoteBlockPatterns(!!response.disableRemoteBlockPatterns);
 		} catch (error) {
 			setNotice({
 				status: "error",
@@ -57,7 +56,7 @@ export default function BlockVisibilityOption() {
 					error?.message ||
 					__(
 						"Die Blockliste konnte nicht geladen werden.",
-						"ud-settings"
+						"ud-settings",
 					),
 			});
 		} finally {
@@ -122,7 +121,7 @@ export default function BlockVisibilityOption() {
 		setExcludedBlocks((currentExcludedBlocks) => {
 			if (currentExcludedBlocks.includes(blockName)) {
 				return currentExcludedBlocks.filter(
-					(name) => name !== blockName
+					(name) => name !== blockName,
 				);
 			}
 
@@ -134,7 +133,7 @@ export default function BlockVisibilityOption() {
 		setExcludedVariations((currentExcludedVariations) => {
 			if (currentExcludedVariations.includes(variationId)) {
 				return currentExcludedVariations.filter(
-					(id) => id !== variationId
+					(id) => id !== variationId,
 				);
 			}
 
@@ -145,18 +144,18 @@ export default function BlockVisibilityOption() {
 	const excludeVisibleItems = () => {
 		const visibleBlockNames = filteredBlocks.map((block) => block.name);
 		const visibleVariationIds = filteredVariations.map(
-			(variation) => variation.id
+			(variation) => variation.id,
 		);
 
 		setExcludedBlocks((currentExcludedBlocks) => {
 			return Array.from(
-				new Set([...currentExcludedBlocks, ...visibleBlockNames])
+				new Set([...currentExcludedBlocks, ...visibleBlockNames]),
 			);
 		});
 
 		setExcludedVariations((currentExcludedVariations) => {
 			return Array.from(
-				new Set([...currentExcludedVariations, ...visibleVariationIds])
+				new Set([...currentExcludedVariations, ...visibleVariationIds]),
 			);
 		});
 	};
@@ -164,7 +163,7 @@ export default function BlockVisibilityOption() {
 	const allowVisibleItems = () => {
 		const visibleBlockNames = filteredBlocks.map((block) => block.name);
 		const visibleVariationIds = filteredVariations.map(
-			(variation) => variation.id
+			(variation) => variation.id,
 		);
 
 		setExcludedBlocks((currentExcludedBlocks) => {
@@ -180,9 +179,50 @@ export default function BlockVisibilityOption() {
 		});
 	};
 
-	const resetSelection = () => {
-		setExcludedBlocks([]);
-		setExcludedVariations([]);
+	const excludeUnusedBlocks = async () => {
+		setIsAnalyzingUsedBlocks(true);
+		setNotice(null);
+
+		try {
+			const response = await apiFetch({
+				path: USED_BLOCKS_ENDPOINT,
+			});
+
+			const usedBlocks = Array.isArray(response.usedBlocks)
+				? response.usedBlocks
+				: [];
+
+			const unusedBlockNames = blocks
+				.map((block) => block.name)
+				.filter((blockName) => {
+					return !usedBlocks.includes(blockName);
+				});
+
+			setExcludedBlocks(unusedBlockNames);
+
+			setNotice({
+				status: "success",
+				message: sprintf(
+					__(
+						"%d ungenutzte Blöcke wurden ausgewählt. Bitte speichern, um die Änderung zu übernehmen.",
+						"ud-settings",
+					),
+					unusedBlockNames.length,
+				),
+			});
+		} catch (error) {
+			setNotice({
+				status: "error",
+				message:
+					error?.message ||
+					__(
+						"Die verwendeten Blöcke konnten nicht ermittelt werden.",
+						"ud-settings",
+					),
+			});
+		} finally {
+			setIsAnalyzingUsedBlocks(false);
+		}
 	};
 
 	const saveSettings = async () => {
@@ -196,21 +236,17 @@ export default function BlockVisibilityOption() {
 				data: {
 					excludedBlocks,
 					excludedVariations,
-					disableCoreBlockPatterns,
-					disableRemoteBlockPatterns,
 				},
 			});
 
 			setExcludedBlocks(response.excludedBlocks || []);
 			setExcludedVariations(response.excludedVariations || []);
-			setDisableCoreBlockPatterns(!!response.disableCoreBlockPatterns);
-			setDisableRemoteBlockPatterns(!!response.disableRemoteBlockPatterns);
 
 			setNotice({
 				status: "success",
 				message: __(
 					"Die Einstellungen wurden gespeichert.",
-					"ud-settings"
+					"ud-settings",
 				),
 			});
 		} catch (error) {
@@ -220,7 +256,7 @@ export default function BlockVisibilityOption() {
 					error?.message ||
 					__(
 						"Die Einstellungen konnten nicht gespeichert werden.",
-						"ud-settings"
+						"ud-settings",
 					),
 			});
 		} finally {
@@ -228,12 +264,16 @@ export default function BlockVisibilityOption() {
 		}
 	};
 
+	const hasSearchTerm = searchTerm.trim().length > 0;
+
 	const hasFilteredItems =
 		filteredBlocks.length > 0 || filteredVariations.length > 0;
 
-	const totalItemsCount = blocks.length + variations.length;
 	const excludedItemsCount =
 		excludedBlocks.length + excludedVariations.length;
+
+	const isActionDisabled =
+		isSaving || isAnalyzingUsedBlocks || !hasFilteredItems;
 
 	if (isLoading) {
 		return (
@@ -245,7 +285,7 @@ export default function BlockVisibilityOption() {
 							<p>
 								{__(
 									"Blockliste wird geladen ...",
-									"ud-settings"
+									"ud-settings",
 								)}
 							</p>
 						</div>
@@ -268,7 +308,7 @@ export default function BlockVisibilityOption() {
 							<p className="option-description">
 								{__(
 									"Aktivierte Checkboxen bedeuten: Dieser Block oder diese Block-Variation wird im Editor nicht angeboten. Bestehende Inhalte bleiben erhalten.",
-									"ud-settings"
+									"ud-settings",
 								)}
 							</p>
 						</div>
@@ -277,7 +317,7 @@ export default function BlockVisibilityOption() {
 							<span className="option-meta">
 								{sprintf(
 									__("%d ausgeschlossen", "ud-settings"),
-									excludedItemsCount
+									excludedItemsCount,
 								)}
 							</span>
 						</div>
@@ -299,33 +339,62 @@ export default function BlockVisibilityOption() {
 							<div className="section-header">
 								<div className="section-intro">
 									<h3 className="section-title">
-										{__(
-											"Filter und Aktionen",
-											"ud-settings"
-										)}
+										{__("Filter & Aktionen", "ud-settings")}
 									</h3>
 
 									<p className="section-description">
 										{__(
-											"Suche nach Blöcken oder Variationen. Bei aktiver Suche gelten Massenaktionen nur für die gefilterten Einträge.",
-											"ud-settings"
+											"Blöcke automatisch anhand der bestehenden Inhalte bereinigen oder manuell über die Suche steuern.",
+											"ud-settings",
 										)}
 									</p>
 								</div>
 							</div>
 
-							<div className="visibility-toolbar">
+							<div className="visibility-primary-action">
+								<div className="visibility-primary-content">
+									<h4 className="visibility-primary-title">
+										{__(
+											"Ungenutzte Blöcke ausschliessen",
+											"ud-settings",
+										)}
+									</h4>
+
+									<p className="visibility-primary-description">
+										{__(
+											"Ermittelt anhand der bestehenden Inhalte, welche Blöcke aktuell nicht verwendet werden, und wählt diese zum Ausschliessen aus.",
+											"ud-settings",
+										)}
+									</p>
+								</div>
+
+								<Button
+									variant="primary"
+									onClick={excludeUnusedBlocks}
+									isBusy={isAnalyzingUsedBlocks}
+									disabled={isSaving || isAnalyzingUsedBlocks}
+									__next40pxDefaultSize={true}
+									__nextHasNoMarginBottom={true}
+								>
+									{__(
+										"Ungenutzte ausschliessen",
+										"ud-settings",
+									)}
+								</Button>
+							</div>
+
+							<div className="visibility-manual-actions">
 								<div className="visibility-search">
 									<SearchControl
 										label={__(
 											"Blöcke suchen",
-											"ud-settings"
+											"ud-settings",
 										)}
 										value={searchTerm}
 										onChange={setSearchTerm}
 										placeholder={__(
 											"Block suchen …",
-											"ud-settings"
+											"ud-settings",
 										)}
 										__next40pxDefaultSize={true}
 										__nextHasNoMarginBottom={true}
@@ -336,143 +405,52 @@ export default function BlockVisibilityOption() {
 									<Button
 										variant="secondary"
 										onClick={excludeVisibleItems}
-										disabled={isSaving || !hasFilteredItems}
+										disabled={isActionDisabled}
 										__next40pxDefaultSize={true}
 										__nextHasNoMarginBottom={true}
 									>
-										{__(
-											"Alle ausschliessen",
-											"ud-settings"
-										)}
+										{hasSearchTerm
+											? __(
+													"Gefilterte ausschliessen",
+													"ud-settings",
+											  )
+											: __(
+													"Alle ausschliessen",
+													"ud-settings",
+											  )}
 									</Button>
 
 									<Button
 										variant="secondary"
 										onClick={allowVisibleItems}
-										disabled={isSaving || !hasFilteredItems}
+										disabled={isActionDisabled}
 										__next40pxDefaultSize={true}
 										__nextHasNoMarginBottom={true}
 									>
-										{__("Alle freigeben", "ud-settings")}
-									</Button>
-
-									<Button
-										variant="tertiary"
-										onClick={resetSelection}
-										disabled={
-											isSaving || excludedItemsCount === 0
-										}
-										__next40pxDefaultSize={true}
-										__nextHasNoMarginBottom={true}
-									>
-										{__(
-											"Auswahl zurücksetzen",
-											"ud-settings"
-										)}
+										{hasSearchTerm
+											? __(
+													"Gefilterte freigeben",
+													"ud-settings",
+											  )
+											: __(
+													"Alle freigeben",
+													"ud-settings",
+											  )}
 									</Button>
 								</div>
 							</div>
-						</section>
 
-						<section className="option-section">
-							<div className="section-header">
-								<div className="section-intro">
-									<h3 className="section-title">
-										{__("Vorlagen", "ud-settings")}
-									</h3>
-
-									<p className="section-description">
-										{__(
-											"Steuert, welche Vorlagen im Inserter angeboten werden. Eigene Vorlagen bleiben verfügbar.",
-											"ud-settings"
-										)}
-									</p>
-								</div>
-							</div>
-
-							<div className="visibility-list">
-								<label
-									className={
-										disableCoreBlockPatterns
-											? "visibility-item is-excluded"
-											: "visibility-item"
-									}
-								>
-									<div className="visibility-control">
-										<CheckboxControl
-											checked={disableCoreBlockPatterns}
-											onChange={
-												setDisableCoreBlockPatterns
-											}
-											__next40pxDefaultSize={true}
-											__nextHasNoMarginBottom={true}
-										/>
-									</div>
-
-									<div className="visibility-content">
-										<span className="visibility-title">
-											{__(
-												"WordPress-Standardvorlagen ausblenden",
-												"ud-settings"
-											)}
-										</span>
-
-										<span className="visibility-description">
-											{__(
-												"Entfernt die von WordPress mitgelieferten Standardvorlagen aus dem Inserter.",
-												"ud-settings"
-											)}
-										</span>
-									</div>
-
-									<span className="visibility-meta">
-										{getVisibilityStatus(
-											disableCoreBlockPatterns
-										)}
-									</span>
-								</label>
-
-								<label
-									className={
-										disableRemoteBlockPatterns
-											? "visibility-item is-excluded"
-											: "visibility-item"
-									}
-								>
-									<div className="visibility-control">
-										<CheckboxControl
-											checked={disableRemoteBlockPatterns}
-											onChange={
-												setDisableRemoteBlockPatterns
-											}
-											__next40pxDefaultSize={true}
-											__nextHasNoMarginBottom={true}
-										/>
-									</div>
-
-									<div className="visibility-content">
-										<span className="visibility-title">
-											{__(
-												"Externe Vorlagen ausblenden",
-												"ud-settings"
-											)}
-										</span>
-
-										<span className="visibility-description">
-											{__(
-												"Verhindert Vorlagen aus dem externen WordPress Pattern Directory.",
-												"ud-settings"
-											)}
-										</span>
-									</div>
-
-									<span className="visibility-meta">
-										{getVisibilityStatus(
-											disableRemoteBlockPatterns
-										)}
-									</span>
-								</label>
-							</div>
+							<p className="visibility-help">
+								{hasSearchTerm
+									? __(
+											"Die manuellen Aktionen gelten nur für die aktuell gefilterten Einträge.",
+											"ud-settings",
+									  )
+									: __(
+											"Die manuellen Aktionen gelten für alle sichtbaren Einträge.",
+											"ud-settings",
+									  )}
+							</p>
 						</section>
 
 						{Object.entries(groupedBlocks).map(
@@ -491,9 +469,9 @@ export default function BlockVisibilityOption() {
 												{sprintf(
 													__(
 														"%d Blöcke in dieser Kategorie.",
-														"ud-settings"
+														"ud-settings",
 													),
-													categoryBlocks.length
+													categoryBlocks.length,
 												)}
 											</p>
 										</div>
@@ -503,7 +481,7 @@ export default function BlockVisibilityOption() {
 										{categoryBlocks.map((block) => {
 											const isExcluded =
 												excludedBlocks.includes(
-													block.name
+													block.name,
 												);
 
 											return (
@@ -520,7 +498,7 @@ export default function BlockVisibilityOption() {
 															checked={isExcluded}
 															onChange={() =>
 																toggleExcludedBlock(
-																	block.name
+																	block.name,
 																)
 															}
 															__next40pxDefaultSize={
@@ -552,7 +530,7 @@ export default function BlockVisibilityOption() {
 
 													<span className="visibility-meta">
 														{getVisibilityStatus(
-															isExcluded
+															isExcluded,
 														)}
 													</span>
 												</label>
@@ -560,7 +538,7 @@ export default function BlockVisibilityOption() {
 										})}
 									</div>
 								</section>
-							)
+							),
 						)}
 
 						{filteredVariations.length > 0 && (
@@ -570,7 +548,7 @@ export default function BlockVisibilityOption() {
 										<h3 className="section-title">
 											{__(
 												"Block-Variationen",
-												"ud-settings"
+												"ud-settings",
 											)}
 										</h3>
 
@@ -578,9 +556,9 @@ export default function BlockVisibilityOption() {
 											{sprintf(
 												__(
 													"%d Variationen werden aktuell angezeigt.",
-													"ud-settings"
+													"ud-settings",
 												),
-												filteredVariations.length
+												filteredVariations.length,
 											)}
 										</p>
 									</div>
@@ -590,7 +568,7 @@ export default function BlockVisibilityOption() {
 									{filteredVariations.map((variation) => {
 										const isExcluded =
 											excludedVariations.includes(
-												variation.id
+												variation.id,
 											);
 
 										return (
@@ -607,7 +585,7 @@ export default function BlockVisibilityOption() {
 														checked={isExcluded}
 														onChange={() =>
 															toggleExcludedVariation(
-																variation.id
+																variation.id,
 															)
 														}
 														__next40pxDefaultSize={
@@ -642,7 +620,7 @@ export default function BlockVisibilityOption() {
 
 												<span className="visibility-meta">
 													{getVisibilityStatus(
-														isExcluded
+														isExcluded,
 													)}
 												</span>
 											</label>
@@ -657,9 +635,9 @@ export default function BlockVisibilityOption() {
 								{sprintf(
 									__(
 										"Keine Einträge für „%s“ gefunden.",
-										"ud-settings"
+										"ud-settings",
 									),
-									searchTerm
+									searchTerm,
 								)}
 							</p>
 						)}
@@ -670,7 +648,7 @@ export default function BlockVisibilityOption() {
 							variant="primary"
 							onClick={saveSettings}
 							isBusy={isSaving}
-							disabled={isSaving}
+							disabled={isSaving || isAnalyzingUsedBlocks}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
 						>

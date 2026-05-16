@@ -6,6 +6,7 @@ import BlockVisibilityOption from "./options/block-visibility/edit";
 import CommentsOption from "./options/comments/edit";
 import MediaSettingsOption from "./options/media-settings/edit";
 import RevisionsOption from "./options/revisions/edit";
+import EditorCleanupOption from "./options/editor-cleanup/edit";
 
 const OPTIONS = [
 	{
@@ -44,6 +45,15 @@ const OPTIONS = [
 		),
 		component: BlockVisibilityOption,
 	},
+	{
+	id: "editor-cleanup",
+	label: __("Editor-Bereinigung", "ud-settings"),
+	description: __(
+		"Werkzeuge und Formatierungsoptionen im Editor ausblenden.",
+		"ud-settings"
+	),
+	component: EditorCleanupOption,
+},
 ];
 
 function getInitialActiveOption() {

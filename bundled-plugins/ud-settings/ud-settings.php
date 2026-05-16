@@ -26,3 +26,4 @@ require_once UD_SETTINGS_PATH . 'includes/options/block-visibility/block-visibil
 require_once UD_SETTINGS_PATH . 'includes/options/comments/comments.php';
 require_once UD_SETTINGS_PATH . 'includes/options/media-settings/media-settings.php';
 require_once UD_SETTINGS_PATH . 'includes/options/revisions/revisions.php';
+require_once UD_SETTINGS_PATH . 'includes/options/editor-cleanup/editor-cleanup.php';
