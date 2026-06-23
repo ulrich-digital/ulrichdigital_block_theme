@@ -21,7 +21,9 @@ function ud_theme_copy_directory( $source, $destination ) {
 	}
 
 	if ( ! is_dir( $destination ) ) {
-		wp_mkdir_p( $destination );
+		if ( ! wp_mkdir_p( $destination ) ) {
+			return false;
+		}
 	}
 
 	$items = scandir( $source );
@@ -39,11 +41,18 @@ function ud_theme_copy_directory( $source, $destination ) {
 		$destination_path = trailingslashit( $destination ) . $item;
 
 		if ( is_dir( $source_path ) ) {
-			ud_theme_copy_directory( $source_path, $destination_path );
+			$copied = ud_theme_copy_directory( $source_path, $destination_path );
+
+			if ( ! $copied ) {
+				return false;
+			}
+
 			continue;
 		}
 
-		copy( $source_path, $destination_path );
+		if ( ! copy( $source_path, $destination_path ) ) {
+			return false;
+		}
 	}
 
 	return true;
@@ -51,6 +60,8 @@ function ud_theme_copy_directory( $source, $destination ) {
 
 /**
  * Installiert und aktiviert UD Settings beim Aktivieren des Themes.
+ *
+ * @return void
  */
 function ud_theme_install_bundled_plugins() {
 	$plugin_slug = 'ud-settings';
@@ -59,19 +70,29 @@ function ud_theme_install_bundled_plugins() {
 	$source_dir = get_stylesheet_directory() . '/bundled-plugins/' . $plugin_slug;
 	$target_dir = WP_PLUGIN_DIR . '/' . $plugin_slug;
 
-	if ( ! is_dir( $target_dir ) ) {
-		ud_theme_copy_directory( $source_dir, $target_dir );
-	}
+if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
+	$copied = ud_theme_copy_directory( $source_dir, $target_dir );
+} 
 
-	if ( ! function_exists( 'is_plugin_active' ) ) {
+
+	if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'activate_plugin' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 
-	if (
-		file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) &&
-		! is_plugin_active( $plugin_file )
-	) {
-		activate_plugin( $plugin_file );
+	if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
+		return;
 	}
+
+	if ( is_plugin_active( $plugin_file ) ) {
+		return;
+	}
+
+	$result = activate_plugin( $plugin_file );
+
+	if ( is_wp_error( $result ) ) {
+		return;
+	}
+
+
 }
 add_action( 'after_switch_theme', 'ud_theme_install_bundled_plugins' );
