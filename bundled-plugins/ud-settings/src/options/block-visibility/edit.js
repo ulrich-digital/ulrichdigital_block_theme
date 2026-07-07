@@ -228,10 +228,11 @@ export default function BlockVisibilityOption() {
 		}
 	};
 
+	const hasSearchTerm = searchTerm.trim().length > 0;
+
 	const hasFilteredItems =
 		filteredBlocks.length > 0 || filteredVariations.length > 0;
 
-	const totalItemsCount = blocks.length + variations.length;
 	const excludedItemsCount =
 		excludedBlocks.length + excludedVariations.length;
 
@@ -314,7 +315,39 @@ export default function BlockVisibilityOption() {
 								</div>
 							</div>
 
-							<div className="visibility-toolbar">
+							<div className="visibility-primary-action">
+								<div className="visibility-primary-content">
+									<h4 className="visibility-primary-title">
+										{__(
+											"Ungenutzte Blöcke ausschliessen",
+											"ud-settings",
+										)}
+									</h4>
+
+									<p className="visibility-primary-description">
+										{__(
+											"Ermittelt anhand der bestehenden Inhalte, welche Blöcke aktuell nicht verwendet werden, und wählt diese zum Ausschliessen aus.",
+											"ud-settings",
+										)}
+									</p>
+								</div>
+
+								<Button
+									variant="primary"
+									onClick={excludeUnusedBlocks}
+									isBusy={isAnalyzingUsedBlocks}
+									disabled={isSaving || isAnalyzingUsedBlocks}
+									__next40pxDefaultSize={true}
+									__nextHasNoMarginBottom={true}
+								>
+									{__(
+										"Ungenutzte ausschliessen",
+										"ud-settings",
+									)}
+								</Button>
+							</div>
+
+							<div className="visibility-manual-actions">
 								<div className="visibility-search">
 									<SearchControl
 										label={ __(
@@ -379,7 +412,6 @@ export default function BlockVisibilityOption() {
 									</Button>
 								</div>
 							</div>
-						</section>
 
 						{ Object.entries( groupedBlocks ).map(
 							( [ category, categoryBlocks ] ) => (
@@ -409,7 +441,7 @@ export default function BlockVisibilityOption() {
 										{ categoryBlocks.map( ( block ) => {
 											const isExcluded =
 												excludedBlocks.includes(
-													block.name
+													block.name,
 												);
 
 											return (
@@ -428,7 +460,7 @@ export default function BlockVisibilityOption() {
 															}
 															onChange={ () =>
 																toggleExcludedBlock(
-																	block.name
+																	block.name,
 																)
 															}
 															__next40pxDefaultSize={
@@ -498,7 +530,7 @@ export default function BlockVisibilityOption() {
 									{ filteredVariations.map( ( variation ) => {
 										const isExcluded =
 											excludedVariations.includes(
-												variation.id
+												variation.id,
 											);
 
 										return (
@@ -515,7 +547,7 @@ export default function BlockVisibilityOption() {
 														checked={ isExcluded }
 														onChange={ () =>
 															toggleExcludedVariation(
-																variation.id
+																variation.id,
 															)
 														}
 														__next40pxDefaultSize={
