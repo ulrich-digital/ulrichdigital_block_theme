@@ -37,19 +37,19 @@ bundled-plugins/ud-settings/
 
 Aktuell enthält das Plugin Einstellungen für:
 
-* **Admin-Oberfläche**  
+* **Admin-Oberfläche**
   Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen.
 
-* **Block-Sichtbarkeit**  
+* **Block-Sichtbarkeit**
   Steuerung, welche Blöcke und Block-Variationen im Editor zur Auswahl stehen.
 
-* **Kommentare**  
+* **Kommentare**
   Globale Deaktivierung der Kommentar-Funktion inklusive Admin-Menü, Admin-Bar und Frontend-Ausgabe.
 
-* **Medien**  
+* **Medien**
   Einstellungen für Uploads und Bildverarbeitung, unter anderem SVG-Uploads, maximale Bildgrössen und optionale WebP-/AVIF-Erzeugung.
 
-* **Revisionen**  
+* **Revisionen**
   Manuelle Bereinigung alter Revisionen mit einstellbarer Anzahl zu behaltender Revisionen pro Inhalt.
 
 Die Einbindung im Theme erfolgt über:
