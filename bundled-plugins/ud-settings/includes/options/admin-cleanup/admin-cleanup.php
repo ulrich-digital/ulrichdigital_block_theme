@@ -17,11 +17,11 @@ define( 'UD_SETTINGS_OPTION_ADMIN_CLEANUP_DASHBOARD_WIDGETS', 'ud_settings_admin
  */
 function ud_settings_admin_cleanup_get_default_settings() {
 	return array(
-		'removeWpLogo'           => true,
-		'removeNewContent'       => true,
-		'removeArchive'          => true,
-		'hideDashboardWidgets'   => true,
-		'hiddenDashboardWidgets' => array(
+		'removeWpLogo'                     => true,
+		'removeNewContent'                 => true,
+		'removeArchive'                    => true,
+		'hideDashboardWidgets'             => true,
+		'hiddenDashboardWidgets'           => array(
 			'dashboard_site_health',
 			'dashboard_right_now',
 			'dashboard_activity',
@@ -29,10 +29,11 @@ function ud_settings_admin_cleanup_get_default_settings() {
 			'dashboard_primary',
 			'welcome_panel',
 		),
-		'renamePosts'            => false,
-		'postSingularName'       => 'Beitrag',
-		'postPluralName'         => 'Beiträge',
-		'hidePostsMenu'          => false,
+		'renamePosts'                      => false,
+		'postSingularName'                 => 'Beitrag',
+		'postPluralName'                   => 'Beiträge',
+		'hidePostsMenu'                    => false,
+		'allowEditorsPrivacyPolicyAccess' => false,
 	);
 }
 
@@ -68,12 +69,13 @@ function ud_settings_admin_cleanup_sanitize_settings( $settings ) {
 
 	$sanitized_settings = array();
 
-	$sanitized_settings['removeWpLogo']         = ! empty( $settings['removeWpLogo'] );
-	$sanitized_settings['removeNewContent']     = ! empty( $settings['removeNewContent'] );
-	$sanitized_settings['removeArchive']        = ! empty( $settings['removeArchive'] );
-	$sanitized_settings['hideDashboardWidgets'] = ! empty( $settings['hideDashboardWidgets'] );
-	$sanitized_settings['renamePosts']          = ! empty( $settings['renamePosts'] );
-	$sanitized_settings['hidePostsMenu']        = ! empty( $settings['hidePostsMenu'] );
+	$sanitized_settings['removeWpLogo']                    = ! empty( $settings['removeWpLogo'] );
+	$sanitized_settings['removeNewContent']                = ! empty( $settings['removeNewContent'] );
+	$sanitized_settings['removeArchive']                   = ! empty( $settings['removeArchive'] );
+	$sanitized_settings['hideDashboardWidgets']            = ! empty( $settings['hideDashboardWidgets'] );
+	$sanitized_settings['renamePosts']                     = ! empty( $settings['renamePosts'] );
+	$sanitized_settings['hidePostsMenu']                   = ! empty( $settings['hidePostsMenu'] );
+	$sanitized_settings['allowEditorsPrivacyPolicyAccess'] = ! empty( $settings['allowEditorsPrivacyPolicyAccess'] );
 
 	$sanitized_settings['postSingularName'] = ! empty( $settings['postSingularName'] )
 		? sanitize_text_field( $settings['postSingularName'] )
@@ -395,3 +397,52 @@ function ud_settings_admin_cleanup_posts_admin_menu() {
 	}
 }
 add_action( 'admin_menu', 'ud_settings_admin_cleanup_posts_admin_menu', 999 );
+
+/**
+ * Erlaubt Redaktoren das Bearbeiten der hinterlegten Datenschutzerklärung.
+ *
+ * WordPress schützt die Datenschutzerklärungs-Seite zusätzlich über
+ * manage_privacy_options. Diese Option entfernt nur diese Zusatzhürde beim
+ * Bearbeiten der konkret hinterlegten Seite.
+ *
+ * @param string[] $caps    Erforderliche Primitive Capabilities.
+ * @param string   $cap     Angefragte Meta-Capability.
+ * @param int      $user_id Benutzer-ID.
+ * @param mixed[]  $args    Zusätzliche Argumente, bei edit_post die Post-ID.
+ *
+ * @return string[]
+ */
+function ud_settings_admin_cleanup_privacy_policy_meta_caps( $caps, $cap, $user_id, $args ) {
+	if ( 'edit_post' !== $cap ) {
+		return $caps;
+	}
+
+	$settings = ud_settings_admin_cleanup_get_settings();
+
+	if ( empty( $settings['allowEditorsPrivacyPolicyAccess'] ) ) {
+		return $caps;
+	}
+
+	if ( empty( $args[0] ) ) {
+		return $caps;
+	}
+
+	$post_id                = (int) $args[0];
+	$privacy_policy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
+
+	if ( $privacy_policy_page_id <= 0 || $post_id !== $privacy_policy_page_id ) {
+		return $caps;
+	}
+
+	if ( ! user_can( $user_id, 'edit_pages' ) ) {
+		return $caps;
+	}
+
+	return array_values(
+		array_diff(
+			$caps,
+			array( 'manage_privacy_options', 'manage_options' )
+		)
+	);
+}
+add_filter( 'map_meta_cap', 'ud_settings_admin_cleanup_privacy_policy_meta_caps', 10, 4 );

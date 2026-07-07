@@ -1,112 +1,160 @@
-import { createRoot, useState } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+import { createRoot, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
-import AdminCleanupOption from "./options/admin-cleanup/edit";
-import BlockVisibilityOption from "./options/block-visibility/edit";
-import CommentsOption from "./options/comments/edit";
-import MediaSettingsOption from "./options/media-settings/edit";
-import RevisionsOption from "./options/revisions/edit";
+import AdminCleanupOption from './options/admin-cleanup/edit';
+import BlockVisibilityOption from './options/block-visibility/edit';
+import CommentsOption from './options/comments/edit';
+import EditorHelpOption from './options/editor-help/edit';
+import EditorInserterOption from './options/editor-inserter/edit';
+import MediaSettingsOption from './options/media-settings/edit';
+import RevisionsOption from './options/revisions/edit';
 
 const OPTIONS = [
 	{
-		id: "admin-cleanup",
-		label: __("Admin-Oberfläche", "ud-settings"),
-		description: __("Admin-Bar und Dashboard vereinfachen.", "ud-settings"),
+		id: 'admin-cleanup',
+		label: __( 'Admin-Oberfläche & Rechte', 'ud-settings' ),
+		description: __(
+			'Admin-Bar, Dashboard und zentrale Berechtigungen steuern.',
+			'ud-settings'
+		),
 		component: AdminCleanupOption,
 	},
 	{
-		id: "comments",
-		label: __("Kommentare", "ud-settings"),
+		id: 'comments',
+		label: __( 'Kommentare', 'ud-settings' ),
 		description: __(
-			"Kommentar-Funktion deaktivieren und Admin-Oberfläche bereinigen.",
-			"ud-settings"
+			'Kommentar-Funktion deaktivieren und Admin-Oberfläche bereinigen.',
+			'ud-settings'
 		),
 		component: CommentsOption,
 	},
 	{
-		id: "revisions",
-		label: __("Revisionen", "ud-settings"),
-		description: __("Alte WordPress-Revisionen bereinigen.", "ud-settings"),
+		id: 'revisions',
+		label: __( 'Revisionen', 'ud-settings' ),
+		description: __(
+			'Alte WordPress-Revisionen bereinigen.',
+			'ud-settings'
+		),
 		component: RevisionsOption,
 	},
 	{
-		id: "media-settings",
-		label: __("Medien", "ud-settings"),
-		description: __("Uploads und Bildverarbeitung steuern.", "ud-settings"),
+		id: 'media-settings',
+		label: __( 'Medien', 'ud-settings' ),
+		description: __(
+			'Uploads und Bildverarbeitung steuern.',
+			'ud-settings'
+		),
 		component: MediaSettingsOption,
 	},
 	{
-		id: "block-visibility",
-		label: __("Block-Sichtbarkeit", "ud-settings"),
+		id: 'block-visibility',
+		label: __( 'Block-Sichtbarkeit', 'ud-settings' ),
 		description: __(
-			"Blöcke und Block-Variationen im Editor ausblenden.",
-			"ud-settings"
+			'Blöcke und Block-Variationen im Editor ausblenden.',
+			'ud-settings'
 		),
 		component: BlockVisibilityOption,
 	},
+	{
+		id: 'editor-inserter',
+		label: __( 'Editor-Inserter', 'ud-settings' ),
+		description: __(
+			'Vorlagen und Medienquellen vereinfachen.',
+			'ud-settings'
+		),
+		component: EditorInserterOption,
+	},
+	{
+		id: 'editor-help',
+		label: __( 'Redaktionshilfe', 'ud-settings' ),
+		description: __(
+			'Kurzanleitung im Dashboard anzeigen.',
+			'ud-settings'
+		),
+		component: EditorHelpOption,
+	},
 ];
 
-function getInitialActiveOption() {
-	const hash = window.location.hash.replace("#", "");
+const ADMIN_SETTINGS = window.udSettingsAdmin || {};
 
-	if (OPTIONS.some((option) => option.id === hash)) {
+function getInitialActiveOption() {
+	const hash = window.location.hash.replace( '#', '' );
+
+	if ( OPTIONS.some( ( option ) => option.id === hash ) ) {
 		return hash;
 	}
 
-	return "admin-cleanup";
+	return 'admin-cleanup';
 }
 
 function AdminApp() {
-	const [activeOption, setActiveOption] = useState(getInitialActiveOption);
+	const [ activeOption, setActiveOption ] = useState(
+		getInitialActiveOption
+	);
 
-	const changeActiveOption = (optionId) => {
-		setActiveOption(optionId);
-		window.history.replaceState(null, "", `#${optionId}`);
+	const changeActiveOption = ( optionId ) => {
+		setActiveOption( optionId );
+		window.history.replaceState( null, '', `#${ optionId }` );
 	};
 
 	const currentOption =
-		OPTIONS.find((option) => option.id === activeOption) || OPTIONS[0];
+		OPTIONS.find( ( option ) => option.id === activeOption ) ||
+		OPTIONS[ 0 ];
 
 	const CurrentComponent = currentOption.component;
 
 	return (
 		<div className="ud-settings-app">
 			<div className="app-header">
-				<p className="app-eyebrow">{__("WordPress", "ud-settings")}</p>
+				{ ADMIN_SETTINGS.logoUrl && (
+					<img
+						className="app-logo"
+						src={ ADMIN_SETTINGS.logoUrl }
+						alt={ __( 'ulrich.digital', 'ud-settings' ) }
+					/>
+				) }
 
-				<h1 className="app-title">{__("UD Settings", "ud-settings")}</h1>
+				<h1 className="app-title">
+					{ __( 'UD Settings', 'ud-settings' ) }
+				</h1>
 
 				<p className="app-intro">
-					{__(
-						"Zentrale Einstellungen für WordPress-Projekte.",
-						"ud-settings"
-					)}
+					{ __(
+						'Zentrale Einstellungen für WordPress-Projekte.',
+						'ud-settings'
+					) }
 				</p>
 			</div>
 
 			<div className="app-layout">
 				<nav
 					className="app-nav"
-					aria-label={__("UD Settings Navigation", "ud-settings")}
+					aria-label={ __( 'UD Settings Navigation', 'ud-settings' ) }
 				>
-					{OPTIONS.map((option) => {
+					{ OPTIONS.map( ( option ) => {
 						const isActive = option.id === activeOption;
 
 						return (
 							<button
-								className={isActive ? "nav-item is-active" : "nav-item"}
+								className={
+									isActive ? 'nav-item is-active' : 'nav-item'
+								}
 								type="button"
-								onClick={() => changeActiveOption(option.id)}
-								key={option.id}
+								onClick={ () =>
+									changeActiveOption( option.id )
+								}
+								key={ option.id }
 							>
-								<span className="nav-title">{option.label}</span>
+								<span className="nav-title">
+									{ option.label }
+								</span>
 
 								<span className="nav-description">
-									{option.description}
+									{ option.description }
 								</span>
 							</button>
 						);
-					})}
+					} ) }
 				</nav>
 
 				<main className="app-content">
@@ -117,8 +165,8 @@ function AdminApp() {
 	);
 }
 
-const app = document.getElementById("ud-settings-app");
+const app = document.getElementById( 'ud-settings-app' );
 
-if (app) {
-	createRoot(app).render(<AdminApp />);
+if ( app ) {
+	createRoot( app ).render( <AdminApp /> );
 }

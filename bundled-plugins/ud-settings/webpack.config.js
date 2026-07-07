@@ -9,8 +9,11 @@ module.exports = {
 		"admin-script": "./src/admin.js",
 		editor: "./src/editor.scss",
 
-	"options/block-visibility/editor-script":
-		"./src/options/block-visibility/editor.js",
+		"options/block-visibility/editor-script":
+			"./src/options/block-visibility/editor.js",
+
+		"options/editor-help/dashboard-script":
+			"./src/options/editor-help/dashboard.js",
 	},
 
 	output: {
@@ -47,14 +50,14 @@ module.exports = {
 		}),
 	],
 
-externals: {
-	"@wordpress/api-fetch": "wp.apiFetch",
-	"@wordpress/blocks": "wp.blocks",
-	"@wordpress/components": "wp.components",
-	"@wordpress/dom-ready": "wp.domReady",
-	"@wordpress/element": "wp.element",
-	"@wordpress/i18n": "wp.i18n",
-},
+	externals: {
+		"@wordpress/api-fetch": "wp.apiFetch",
+		"@wordpress/blocks": "wp.blocks",
+		"@wordpress/components": "wp.components",
+		"@wordpress/dom-ready": "wp.domReady",
+		"@wordpress/element": "wp.element",
+		"@wordpress/i18n": "wp.i18n",
+	},
 
 	stats: "minimal",
 };

@@ -3,4 +3,6 @@
 @use "./options/revisions/editor" as *;
 @use "./options/block-visibility/editor" as *;
 @use "./options/comments/editor" as *;
+@use "./options/editor-help/editor" as *;
+@use "./options/editor-inserter/editor" as *;
 @use "./options/media-settings/editor" as *;

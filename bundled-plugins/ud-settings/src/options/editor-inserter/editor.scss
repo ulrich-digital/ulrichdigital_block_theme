@@ -1,0 +1,11 @@
+.ud-settings-editor-inserter__loading {
+	display: flex;
+	align-items: center;
+	gap: var(--ud-settings-space-150);
+	min-height: 80px;
+}
+
+.ud-settings-editor-inserter__list {
+	display: grid;
+	gap: var(--ud-settings-space-150);
+}

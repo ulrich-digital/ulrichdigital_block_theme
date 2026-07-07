@@ -13,8 +13,8 @@ Das Plugin bündelt wiederverwendbare Grundkonfigurationen, die sonst häufig in
 
 Aktuell enthält das Plugin folgende Bereiche:
 
-* **Admin-Oberfläche**
-  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen.
+* **Admin-Oberfläche & Rechte**
+  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen, Anpassen des Beitrags-Menüs und Freigeben der Datenschutzerklärung für Redaktoren.
 
 * **Block-Sichtbarkeit**
   Steuerung, welche Blöcke und Block-Variationen im Block Editor zur Auswahl stehen.
@@ -25,12 +25,18 @@ Aktuell enthält das Plugin folgende Bereiche:
 * **Medien**
   Einstellungen für Uploads und Bildverarbeitung, unter anderem SVG-Uploads, maximale Bildgrössen und optionale WebP-/AVIF-Erzeugung.
 
+* **Editor-Inserter**
+  Vereinfachung des Block-Inserters, etwa durch Reduktion auf eigene Vorlagen und lokale Medienquellen.
+
+* **Redaktionshilfe**
+  Kurzanleitung für Redaktoren als Dashboard-Widget mit frei gepflegten Abschnitten und optionalen Screenshots.
+
 * **Revisionen**
   Manuelle Bereinigung alter Revisionen mit einstellbarer Anzahl zu behaltender Revisionen pro Inhalt.
 
-## Admin-Oberfläche
+## Admin-Oberfläche & Rechte
 
-Die Option **Admin-Oberfläche** vereinfacht die WordPress-Administration.
+Die Option **Admin-Oberfläche & Rechte** vereinfacht die WordPress-Administration und steuert ausgewählte zentrale Berechtigungen.
 
 Einzeln steuerbar sind:
 
@@ -38,8 +44,13 @@ Einzeln steuerbar sind:
 * „Neu“-Menü aus der Admin-Bar entfernen
 * Archiv-Link aus der Admin-Bar entfernen
 * Dashboard-Boxen standardmässig ausblenden
+* Beiträge umbenennen
+* Beiträge im Admin-Menü ausblenden
+* Datenschutzerklärung für Redaktoren freigeben
 
 Die Einstellungen greifen teilweise erst nach einem Neuladen der Admin-Seite, da Admin-Bar und Dashboard serverseitig beim Seitenaufbau erzeugt werden.
+
+Die Freigabe der Datenschutzerklärung betrifft nur die in WordPress hinterlegte Datenschutzerklärungs-Seite und nur Benutzer, die grundsätzlich Seiten bearbeiten dürfen.
 
 ## Block-Sichtbarkeit
 
@@ -58,6 +69,8 @@ Zusätzlich können aktuell folgende Core-Block-Variationen ausgeblendet werden:
 
 * `core/heading::stretchy-heading`
 * `core/paragraph::stretchy-paragraph`
+
+Vorlagen und externe Pattern-Quellen werden im Bereich **Editor-Inserter** gesteuert.
 
 ## Kommentare
 
@@ -87,6 +100,31 @@ Die JPEG-Konvertierung betrifft nur von WordPress neu erzeugte Bilddateien. Die 
 
 Bereits vorhandene Medien und Bildgrössen werden nicht rückwirkend angepasst.
 
+## Editor-Inserter
+
+Die Option **Editor-Inserter** vereinfacht den Block-Inserter.
+
+Aktuell verfügbar:
+
+* nur eigene Vorlagen anzeigen
+* nur lokale Mediathek anzeigen
+
+Bei aktiver Vorlagen-Einschränkung werden Core-, Theme-, Plugin- und Remote-Vorlagen aus dem Inserter entfernt. Selbst im Editor erstellte Vorlagen bleiben sichtbar.
+
+Bei aktiver Medien-Einschränkung werden externe Medienquellen wie Openverse aus dem Medien-Tab des Inserters entfernt.
+
+## Redaktionshilfe
+
+Die Option **Redaktionshilfe** stellt eine Kurzanleitung als Dashboard-Widget bereit.
+
+Möglich ist:
+
+* Dashboard-Widget aktivieren oder deaktivieren
+* Widget-Titel festlegen
+* mehrere Abschnitte mit HTML-Inhalt pflegen
+* Screenshots je Abschnitt hochladen
+* Screenshots im Dashboard per Lightbox vergrössern
+
 ## Revisionen
 
 Die Option **Revisionen** dient zur Bereinigung alter WordPress-Revisionen.
@@ -108,6 +146,10 @@ includes/
     │   └── block-visibility.php
     ├── comments/
     │   └── comments.php
+    ├── editor-help/
+    │   └── editor-help.php
+    ├── editor-inserter/
+    │   └── editor-inserter.php
     ├── media-settings/
     │   └── media-settings.php
     └── revisions/
@@ -123,6 +165,13 @@ src/
     │   ├── editor.js
     │   └── editor.scss
     ├── comments/
+    │   ├── edit.js
+    │   └── editor.scss
+    ├── editor-help/
+    │   ├── dashboard.js
+    │   ├── edit.js
+    │   └── editor.scss
+    ├── editor-inserter/
     │   ├── edit.js
     │   └── editor.scss
     ├── media-settings/
