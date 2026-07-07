@@ -24,7 +24,6 @@ Diese Struktur gilt für JavaScript (`src/js/`) und SCSS (`src/scss/`).
 ![UD Settings Admin-Oberfläche](assets/ud_settings.webp)
 *UD Settings bündelt zentrale WordPress-Einstellungen in einer eigenen Admin-Oberfläche.*
 
-**
 Das Theme enthält `UD Settings` als vollständige Plugin-Entwicklungsumgebung unter:
 
 ```text
@@ -37,8 +36,8 @@ bundled-plugins/ud-settings/
 
 Aktuell enthält das Plugin Einstellungen für:
 
-* **Admin-Oberfläche**
-  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen.
+* **Admin-Oberfläche & Rechte**
+  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen, Anpassen des Beitrags-Menüs und Freigeben der Datenschutzerklärung für Redaktoren.
 
 * **Block-Sichtbarkeit**
   Steuerung, welche Blöcke und Block-Variationen im Editor zur Auswahl stehen.
@@ -48,6 +47,12 @@ Aktuell enthält das Plugin Einstellungen für:
 
 * **Medien**
   Einstellungen für Uploads und Bildverarbeitung, unter anderem SVG-Uploads, maximale Bildgrössen und optionale WebP-/AVIF-Erzeugung.
+
+* **Editor-Inserter**
+  Vereinfachung des Block-Inserters, zum Beispiel durch Reduktion auf eigene Vorlagen und lokale Medienquellen.
+
+* **Redaktionshilfe**
+  Kurzanleitung für Redaktoren als Dashboard-Widget mit frei gepflegten Abschnitten und optionalen Screenshots.
 
 * **Revisionen**
   Manuelle Bereinigung alter Revisionen mit einstellbarer Anzahl zu behaltender Revisionen pro Inhalt.
@@ -73,7 +78,7 @@ npm install
 npm run build
 ```
 
-Beim Aktivieren des Themes wird `UD Settings` aus `bundled-plugins/ud-settings/` nach `wp-content/plugins/ud-settings/` kopiert und aktiviert, sofern es dort noch nicht vorhanden oder aktiv ist.
+Beim Aktivieren des Themes wird `UD Settings` aus `bundled-plugins/ud-settings/` nach `wp-content/plugins/ud-settings/` kopiert, sofern die Plugin-Datei dort noch fehlt. Anschliessend wird das Plugin aktiviert, falls es vorhanden, aber noch nicht aktiv ist.
 
 ## Weiterentwicklung
 
