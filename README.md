@@ -19,6 +19,8 @@ Das Theme arbeitet mit getrennten Entry Points:
 
 Diese Struktur gilt für JavaScript (`src/js/`) und SCSS (`src/scss/`).
 
+Admin-Funktionen werden bewusst im gebündelten Plugin `UD Settings` umgesetzt, nicht als eigener Theme-Entry-Point.
+
 ## Gebündeltes Plugin: UD Settings
 
 ![UD Settings Admin-Oberfläche](assets/ud_settings.webp)
@@ -32,30 +34,7 @@ bundled-plugins/ud-settings/
 
 `node_modules/` wird weder im Theme noch im gebündelten Plugin mitgeführt. Die Abhängigkeiten müssen bei Bedarf im jeweiligen Verzeichnis mit `npm install` neu installiert werden.
 
-`UD Settings` bündelt zentrale WordPress-Projekteinstellungen, die sonst häufig in der `functions.php` eines Themes landen würden. Dadurch bleibt die Theme-Struktur schlanker und wiederverwendbare Grundkonfigurationen können zentral gepflegt werden.
-
-Aktuell enthält das Plugin Einstellungen für:
-
-* **Admin-Oberfläche & Rechte**
-  Vereinfachung der WordPress-Administration, zum Beispiel durch Ausblenden einzelner Admin-Bar-Elemente und Dashboard-Boxen, Anpassen des Beitrags-Menüs und Freigeben der Datenschutzerklärung für Redaktoren.
-
-* **Block-Sichtbarkeit**
-  Steuerung, welche Blöcke und Block-Variationen im Editor zur Auswahl stehen.
-
-* **Kommentare**
-  Globale Deaktivierung der Kommentar-Funktion inklusive Admin-Menü, Admin-Bar und Frontend-Ausgabe.
-
-* **Medien**
-  Einstellungen für Uploads und Bildverarbeitung, unter anderem SVG-Uploads, maximale Bildgrössen und optionale WebP-/AVIF-Erzeugung.
-
-* **Editor-Inserter**
-  Vereinfachung des Block-Inserters, zum Beispiel durch Reduktion auf eigene Vorlagen und lokale Medienquellen.
-
-* **Redaktionshilfe**
-  Kurzanleitung für Redaktoren als Dashboard-Widget mit frei gepflegten Abschnitten und optionalen Screenshots.
-
-* **Revisionen**
-  Manuelle Bereinigung alter Revisionen mit einstellbarer Anzahl zu behaltender Revisionen pro Inhalt.
+`UD Settings` bündelt zentrale WordPress-Projekteinstellungen, die sonst häufig in der `functions.php` eines Themes landen würden. Dazu gehören unter anderem Admin-Bereinigung, Rechte, Block- und Inserter-Steuerung, Medien-Einstellungen, Kommentare, Revisionen und eine Redaktionshilfe im Dashboard.
 
 Die Einbindung im Theme erfolgt über:
 
