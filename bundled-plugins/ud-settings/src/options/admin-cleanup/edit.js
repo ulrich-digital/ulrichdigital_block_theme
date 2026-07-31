@@ -25,8 +25,6 @@ const DEFAULT_SETTINGS = {
 	postSingularName: "Beitrag",
 	postPluralName: "Beiträge",
 	hidePostsMenu: false,
-
-	allowEditorsPrivacyPolicyAccess: false,
 };
 
 const ADMIN_BAR_OPTIONS = [
@@ -77,8 +75,6 @@ function normalizeSettings(settings = {}) {
 				? settings.postPluralName
 				: DEFAULT_SETTINGS.postPluralName,
 		hidePostsMenu: !!settings.hidePostsMenu,
-		allowEditorsPrivacyPolicyAccess:
-			!!settings.allowEditorsPrivacyPolicyAccess,
 	};
 }
 
@@ -209,10 +205,6 @@ export default function AdminCleanupOption() {
 		settings.hidePostsMenu,
 	].filter(Boolean).length;
 
-	const rightsActiveCount = [
-		settings.allowEditorsPrivacyPolicyAccess,
-	].filter(Boolean).length;
-
 	const renderCheckboxSetting = ({
 		key,
 		title,
@@ -274,12 +266,12 @@ export default function AdminCleanupOption() {
 					<header className="option-header">
 						<div className="option-intro">
 							<h2 className="option-title">
-								{__("Admin-Oberfläche & Rechte", "ud-settings")}
+								{__("Admin-Oberfläche", "ud-settings")}
 							</h2>
 
 							<p className="option-description">
 								{__(
-									"Hier können Admin-Bar, Dashboard, der Standard-Inhaltstyp Beiträge und zentrale Berechtigungen angepasst werden.",
+									"Hier können Admin-Bar, Dashboard und der Standard-Inhaltstyp Beiträge vereinfacht oder angepasst werden.",
 									"ud-settings"
 								)}
 							</p>
@@ -518,54 +510,6 @@ export default function AdminCleanupOption() {
 										updateSetting("hidePostsMenu", value),
 									status: getBooleanStatus(
 										!!settings.hidePostsMenu
-									),
-								})}
-							</div>
-						</section>
-
-						<section className="option-section">
-							<div className="section-header">
-								<div className="section-intro">
-									<h3 className="section-title">
-										{__("Datenschutzerklärung", "ud-settings")}
-									</h3>
-
-									<p className="section-description">
-										{__(
-											"Bearbeitungsrechte für die WordPress-Datenschutzerklärung steuern.",
-											"ud-settings"
-										)}
-									</p>
-								</div>
-
-								<span className="section-meta">
-									{sprintf(
-										__("%d aktiv", "ud-settings"),
-										rightsActiveCount
-									)}
-								</span>
-							</div>
-
-							<div className="section-body">
-								{renderCheckboxSetting({
-									key: "allowEditorsPrivacyPolicyAccess",
-									title: __(
-										"Datenschutzerklärung für Redaktoren freigeben",
-										"ud-settings"
-									),
-									description: __(
-										"Erlaubt Redaktoren, die in WordPress hinterlegte Datenschutzerklärung zu bearbeiten.",
-										"ud-settings"
-									),
-									checked:
-										!!settings.allowEditorsPrivacyPolicyAccess,
-									onChange: (value) =>
-										updateSetting(
-											"allowEditorsPrivacyPolicyAccess",
-											value
-										),
-									status: getBooleanStatus(
-										!!settings.allowEditorsPrivacyPolicyAccess
 									),
 								})}
 							</div>

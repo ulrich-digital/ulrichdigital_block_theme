@@ -1,24 +1,24 @@
 .ud-settings-editor-help__loading {
 	display: flex;
 	align-items: center;
-	gap: var(--ud-settings-space-150);
+	gap: var(--ud-space-200);
 	min-height: 80px;
 }
 
 .ud-settings-editor-help__list,
 .ud-settings-editor-help__sections {
 	display: grid;
-	gap: var(--ud-settings-space-150);
+	gap: var(--ud-space-200);
 }
 
 .ud-settings-editor-help__fields,
 .ud-settings-editor-help__section {
 	display: grid;
-	gap: var(--ud-settings-space-200);
-	padding: var(--ud-settings-space-250);
-	border: 1px solid var(--ud-settings-color-border);
-	border-radius: var(--ud-settings-radius-md);
-	background: var(--ud-settings-color-surface-soft);
+	gap: var(--ud-space-300);
+	padding: var(--ud-space-400);
+	border: 1px solid var(--ud-neutral-400);
+	border-radius: var(--ud-radius-400);
+	background: var(--ud-neutral-100);
 }
 
 .ud-settings-option--editor-help .setting-fields {
@@ -29,7 +29,7 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto;
 	align-items: start;
-	gap: var(--ud-settings-space-200);
+	gap: var(--ud-space-300);
 }
 
 .ud-settings-editor-help__section-header h3 {
@@ -37,7 +37,7 @@
 	font-size: 18px;
 	font-weight: 700;
 	line-height: 1.25;
-	color: var(--ud-settings-color-text);
+	color: var(--ud-neutral-800);
 }
 
 .ud-settings-editor-help__section-actions,
@@ -45,12 +45,12 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-end;
-	gap: var(--ud-settings-space-100);
+	gap: var(--ud-space-100);
 }
 
 .ud-settings-editor-help__section-fields {
 	display: grid;
-	gap: var(--ud-settings-space-200);
+	gap: var(--ud-space-300);
 }
 
 .ud-settings-editor-help__section-fields textarea {
@@ -63,7 +63,7 @@
 
 .ud-settings-editor-help__image-field {
 	display: grid;
-	gap: var(--ud-settings-space-100);
+	gap: var(--ud-space-100);
 }
 
 .ud-settings-editor-help__image-label {
@@ -78,9 +78,9 @@
 .ud-settings-editor-help__image-preview {
 	margin: 0;
 	max-width: 520px;
-	border: 1px solid var(--ud-settings-color-border);
-	border-radius: var(--ud-settings-radius-sm);
-	background: var(--ud-settings-color-surface);
+	border: 1px solid var(--ud-neutral-400);
+	border-radius: var(--ud-radius-300);
+	background: var(--ud-theme-100);
 	overflow: hidden;
 }
 

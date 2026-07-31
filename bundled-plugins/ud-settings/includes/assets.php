@@ -8,49 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Lädt Assets für die UD-Settings-Seite und das Dashboard.
+ * Lädt die Admin-App nur auf der eigenen Optionen-Seite.
  *
  * @param string $hook_suffix Aktueller Admin-Hook.
  */
 function ud_settings_enqueue_admin_assets( $hook_suffix ) {
-	$is_settings_page = 'settings_page_ud-settings' === $hook_suffix;
-	$is_dashboard     = 'index.php' === $hook_suffix;
-
-	if ( ! $is_settings_page && ! $is_dashboard ) {
-		return;
-	}
-
-	$style_path = UD_SETTINGS_PATH . 'build/editor.css';
-	$style_url  = UD_SETTINGS_URL . 'build/editor.css';
-
-	if ( file_exists( $style_path ) ) {
-		wp_enqueue_style(
-			'ud-settings-editor',
-			$style_url,
-			array( 'wp-components' ),
-			filemtime( $style_path )
-		);
-	}
-
-	if ( $is_dashboard ) {
-		$dashboard_script_path = UD_SETTINGS_PATH . 'build/options/editor-help/dashboard-script.js';
-		$dashboard_script_url  = UD_SETTINGS_URL . 'build/options/editor-help/dashboard-script.js';
-		$dashboard_asset_path  = UD_SETTINGS_PATH . 'build/options/editor-help/dashboard-script.asset.php';
-
-		if ( file_exists( $dashboard_script_path ) && file_exists( $dashboard_asset_path ) ) {
-			$dashboard_asset = require $dashboard_asset_path;
-
-			wp_enqueue_script(
-				'ud-settings-editor-help-dashboard',
-				$dashboard_script_url,
-				$dashboard_asset['dependencies'],
-				$dashboard_asset['version'],
-				true
-			);
-		}
-	}
-
-	if ( ! $is_settings_page ) {
+	if ( 'settings_page_ud-settings' !== $hook_suffix ) {
 		return;
 	}
 
@@ -72,14 +35,62 @@ function ud_settings_enqueue_admin_assets( $hook_suffix ) {
 		true
 	);
 
-	wp_add_inline_script(
-		'ud-settings-admin-script',
-		'window.udSettingsAdmin = ' . wp_json_encode(
-			array(
-				'logoUrl' => UD_SETTINGS_URL . 'assets/ulrich_digital.svg',
-			)
-		) . ';',
-		'before'
-	);
+	$style_path = UD_SETTINGS_PATH . 'build/editor.css';
+	$style_url  = UD_SETTINGS_URL . 'build/editor.css';
+
+	if ( file_exists( $style_path ) ) {
+		wp_enqueue_style(
+			'ud-settings-editor',
+			$style_url,
+			array( 'wp-components' ),
+			filemtime( $style_path )
+		);
+	}
 }
 add_action( 'admin_enqueue_scripts', 'ud_settings_enqueue_admin_assets' );
+
+/**
+ * Lädt Styles und Lightbox-Script für die Redaktionshilfe im Dashboard.
+ *
+ * @param string $hook_suffix Aktueller Admin-Hook.
+ */
+function ud_settings_enqueue_editor_help_dashboard_assets( $hook_suffix ) {
+	if ( 'index.php' !== $hook_suffix ) {
+		return;
+	}
+
+	$settings = ud_settings_editor_help_get_settings();
+
+	if ( empty( $settings['enableEditorHelp'] ) || empty( $settings['sections'] ) ) {
+		return;
+	}
+
+	$style_path = UD_SETTINGS_PATH . 'build/editor.css';
+
+	if ( file_exists( $style_path ) ) {
+		wp_enqueue_style(
+			'ud-settings-editor-help',
+			UD_SETTINGS_URL . 'build/editor.css',
+			array(),
+			filemtime( $style_path )
+		);
+	}
+
+	$script_path = UD_SETTINGS_PATH . 'build/options/editor-help/dashboard-script.js';
+	$asset_path  = UD_SETTINGS_PATH . 'build/options/editor-help/dashboard-script.asset.php';
+
+	if ( ! file_exists( $script_path ) || ! file_exists( $asset_path ) ) {
+		return;
+	}
+
+	$asset = require $asset_path;
+
+	wp_enqueue_script(
+		'ud-settings-editor-help-dashboard',
+		UD_SETTINGS_URL . 'build/options/editor-help/dashboard-script.js',
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+}
+add_action( 'admin_enqueue_scripts', 'ud_settings_enqueue_editor_help_dashboard_assets' );
