@@ -2,12 +2,7 @@
 /* =============================================================== *\
    WP-Head
 \* =============================================================== */
-add_action('wp_head', function () { ?>
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="index, follow">
-<?php
-
-});
+// WordPress erzeugt Viewport- und Robots-Angaben selbst.
 
 /* =============================================================== *\
    wp-config.php anpassen
@@ -60,6 +55,21 @@ add_action('enqueue_block_assets', function () {
         );
     }
 });
+
+/* Font Awesome wird im Frontend erst nach dem ersten Rendering aktiviert. */
+add_filter('style_loader_tag', function ($html, $handle, $href, $media) {
+    if ($handle !== 'ud-fontawesome' || is_admin()) {
+        return $html;
+    }
+
+    $href = esc_url($href);
+
+    return sprintf(
+        '<link rel="preload" id="ud-fontawesome-css" href="%1$s" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">' .
+        '<noscript><link rel="stylesheet" href="%1$s"></noscript>',
+        $href
+    );
+}, 10, 4);
 
 /* Backend */
 add_action('admin_enqueue_scripts', function () {
@@ -142,7 +152,7 @@ function my_login_logo() { ?>
     <style type="text/css">
         #login h1 a,
         .login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/ulrich_digital_schriftzug_inter.svg);
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/ulrich_digital_schriftzug_2026.svg);
             padding-bottom: 60px;
             width: 320px;
             background-repeat: no-repeat;
@@ -205,4 +215,23 @@ if (!is_admin()):
         return array_merge($classes, array('is_frontend'));
     });
 endif;
+
+/* =============================================================== *\
+   Allgemeine Block-Styles
+\* =============================================================== */
+add_action('init', function () {
+    if (! function_exists('register_block_style')) {
+        return;
+    }
+
+    register_block_style('core/paragraph', [
+        'name'  => 'ud-inline-arrow-link',
+        'label' => __('Textlink mit Pfeil', 'ulrichdigital'),
+    ]);
+
+    register_block_style('core/image', [
+        'name'  => 'ud-image-card',
+        'label' => __('UD Bildkarte', 'ulrichdigital'),
+    ]);
+});
 ?>

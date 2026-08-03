@@ -1,0 +1,19 @@
+.wp-block-image.is-style-ud-image-card {
+	padding: 12px;
+	background-color: var(--ud-theme-450, #dad4bd);
+	border-radius: var(--ud-radius-350, 16px);
+	box-shadow: var(--ud-shadow-300);
+}
+
+.wp-block-image.is-style-ud-image-card img {
+	border-radius: 6px;
+}
+
+.wp-block-image.is-style-ud-image-card figcaption {
+	margin-top: 12px;
+	margin-bottom: 0;
+	color: var(--ud-muted-700, rgba(0, 0, 0, 0.68));
+	font-size: 0.8667rem;
+	font-style: italic;
+	line-height: 1.3;
+}

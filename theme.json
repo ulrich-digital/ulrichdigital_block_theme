@@ -21,24 +21,24 @@
 			"dropCap": false,
             "fontFamilies": [
                 {
-                    "fontFamily": "\"Rubik\", sans-serif",
-                    "name": "Rubik",
-                    "slug": "rubik",
+                    "fontFamily": "\"Google Sans\", sans-serif",
+                    "name": "Google Sans",
+                    "slug": "google-sans",
                     "fontFace": [
                         {
-                            "fontFamily": "Rubik",
+                            "fontFamily": "Google Sans",
                             "fontStyle": "normal",
                             "fontWeight": "100 900",
                             "src": [
-                                "file:./assets/fonts/Rubik-VariableFont_wght.woff2"
+                                "file:./assets/fonts/GoogleSans-VariableFont.woff2"
                             ]
                         },
                         {
-                            "fontFamily": "Rubik",
+                            "fontFamily": "Google Sans",
                             "fontStyle": "italic",
                             "fontWeight": "100 900",
                             "src": [
-                                "file:./assets/fonts/Rubik-Italic-VariableFont_wght.woff2"
+                                "file:./assets/fonts/GoogleSans-Italic-VariableFont.woff2"
                             ]
                         }
                     ]
@@ -47,7 +47,7 @@
             "fontSizes": [
                 {
                     "slug": "base",
-                    "size": "1.125rem",
+                    "size": "1rem",
                     "name": "Base"
                 }
             ]
@@ -55,9 +55,9 @@
     },
     "styles": {
         "typography": {
-			"fontFamily": "var(--wp--preset--font-family--rubik)",
+			"fontFamily": "var(--wp--preset--font-family--google-sans)",
             "fontSize": "var(--wp--preset--font-size--base)",
-            "lineHeight": "1.25"
+            "lineHeight": "1.333"
         }
     }
 }

@@ -249,3 +249,53 @@ h6.wp-block-heading {
 .wp-block-button.is-style-ud-arrow-right .wp-block-button__link:hover::after {
   transform: translateX(4px);
 }
+
+p.is-style-ud-inline-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.05rem;
+  margin: 0;
+}
+p.is-style-ud-inline-arrow-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.05rem;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: inherit;
+  text-decoration: none;
+}
+p.is-style-ud-inline-arrow-link a::after {
+  content: "\f061";
+  display: inline-block;
+  font-family: "Font Awesome 7 Sharp";
+  font-size: 0.95em;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+p.is-style-ud-inline-arrow-link a:hover::after, p.is-style-ud-inline-arrow-link a:focus-visible::after {
+  transform: translateX(0.35rem);
+}
+
+.wp-block-image.is-style-ud-image-card {
+  padding: 12px;
+  background-color: var(--ud-theme-450, #dad4bd);
+  border-radius: var(--ud-radius-350, 16px);
+  box-shadow: var(--ud-shadow-300);
+}
+
+.wp-block-image.is-style-ud-image-card img {
+  border-radius: 6px;
+}
+
+.wp-block-image.is-style-ud-image-card figcaption {
+  margin-top: 12px;
+  margin-bottom: 0;
+  color: var(--ud-muted-700, rgba(0, 0, 0, 0.68));
+  font-size: 0.8667rem;
+  font-style: italic;
+  line-height: 1.3;
+}

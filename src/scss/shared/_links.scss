@@ -1,0 +1,33 @@
+p.is-style-ud-inline-arrow-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.05rem;
+	margin: 0;
+
+	a {
+		display: inline-flex;
+		align-items: center;
+		gap: 1.05rem;
+		color: inherit;
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: inherit;
+		text-decoration: none;
+
+		&::after {
+			content: "\f061";
+			display: inline-block;
+			font-family: "Font Awesome 7 Sharp";
+			font-size: 0.95em;
+			font-style: normal;
+			font-weight: 900;
+			line-height: 1;
+			transition: transform 180ms ease;
+		}
+
+		&:hover::after,
+		&:focus-visible::after {
+			transform: translateX(0.35rem);
+		}
+	}
+}
