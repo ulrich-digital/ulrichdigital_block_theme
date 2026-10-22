@@ -1,0 +1,59 @@
+/* ulrich.digital options header v1 — 2026-10-22.
+ * Keep this file identical in all plugins. Central standard:
+ * https://chatgpt.com/space/page_492e27c20ea48191a6366fa2aebef97d
+ */
+.wrap.ud-admin-page {
+ max-width: 1250px;
+ margin: 24px 24px 40px 4px;
+ padding: 0;
+}
+.ud-admin-page .ud-admin-header,
+.ud-admin-page .ud-admin-header * { box-sizing: border-box; }
+.ud-admin-page .ud-admin-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: flex-start;
+ gap: 24px;
+ margin: 0 0 24px;
+ padding: 32px 36px;
+ border: 0;
+ border-radius: 14px;
+ background: #f2dd61;
+ color: #252525;
+ box-shadow: none;
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+ font-size: 13px;
+ font-weight: 400;
+ font-style: normal;
+ line-height: 1.5;
+ letter-spacing: normal;
+ text-align: left;
+}
+.ud-admin-page .ud-admin-header__content { flex: 1; min-width: 0; }
+.ud-admin-page .ud-admin-header__brand {
+ margin: 0; padding: 0; color: inherit;
+ font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: .04em;
+}
+.ud-admin-page .ud-admin-header__title {
+ margin: 15px 0 10px; padding: 0; color: inherit;
+ font-size: 28px; font-weight: 600; line-height: 1.25; letter-spacing: normal;
+ overflow-wrap: anywhere;
+}
+.ud-admin-page .ud-admin-header__lead {
+ margin: 0; padding: 0; max-width: none; color: inherit;
+ font-size: 14px; font-weight: 400; line-height: 1.5; letter-spacing: normal;
+ overflow-wrap: anywhere;
+}
+.ud-admin-page .ud-admin-header__version {
+ flex: none; align-self: flex-start; margin: 0;
+ border: 1px solid #78691f; border-radius: 20px; padding: 5px 10px;
+ background: transparent; color: inherit;
+ font-size: 12px; font-weight: 400; line-height: 1.5; letter-spacing: normal;
+ white-space: nowrap;
+}
+@media (max-width: 600px) {
+ .wrap.ud-admin-page { margin: 12px 10px 24px 0; }
+ .ud-admin-page .ud-admin-header { padding: 22px; }
+ .ud-admin-page .ud-admin-header__title { font-size: 24px; }
+ .ud-admin-page .ud-admin-header__version { display: none; }
+}

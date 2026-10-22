@@ -1,10 +1,10 @@
+import Notice, { rememberSavedNotice } from "../../components/status-notice";
 import apiFetch from "@wordpress/api-fetch";
 import {
 	Button,
 	Card,
 	CardBody,
 	CheckboxControl,
-	Notice,
 	Spinner,
 	TextControl,
 } from "@wordpress/components";
@@ -174,6 +174,7 @@ export default function AdminCleanupOption() {
 			});
 
 			window.setTimeout(() => {
+				rememberSavedNotice();
 				window.location.reload();
 			}, 700);
 		} catch (error) {
@@ -519,13 +520,13 @@ export default function AdminCleanupOption() {
 					<div className="option-actions">
 						<Button
 							variant="primary"
-							onClick={saveSettings}
+							className="ud-button-save" onClick={saveSettings}
 							isBusy={isSaving}
 							disabled={isSaving}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
 						>
-							{__("Speichern", "ud-settings")}
+							{__("Änderungen speichern", "ud-settings")}
 						</Button>
 					</div>
 				</div>

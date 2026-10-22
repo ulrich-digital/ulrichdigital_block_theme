@@ -1,9 +1,9 @@
+import Notice from "../../components/status-notice";
 import apiFetch from "@wordpress/api-fetch";
 import {
 	Button,
 	Card,
 	CardBody,
-	Notice,
 	Spinner,
 	TextControl,
 } from "@wordpress/components";
@@ -287,13 +287,13 @@ export default function RevisionsOption() {
 					<div className="option-actions">
 						<Button
 							variant="secondary"
-							onClick={saveSettings}
+							className="ud-button-save" onClick={saveSettings}
 							isBusy={isSaving}
 							disabled={isSaving || isCleaning}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
 						>
-							{__("Speichern", "ud-settings")}
+							{__("Änderungen speichern", "ud-settings")}
 						</Button>
 
 						<Button

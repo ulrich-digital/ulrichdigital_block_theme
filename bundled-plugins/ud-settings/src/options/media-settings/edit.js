@@ -1,10 +1,10 @@
+import Notice from "../../components/status-notice";
 import apiFetch from "@wordpress/api-fetch";
 import {
 	Button,
 	Card,
 	CardBody,
 	CheckboxControl,
-	Notice,
 	RadioControl,
 	RangeControl,
 	Spinner,
@@ -389,13 +389,13 @@ export default function MediaSettingsOption() {
 					<div className="option-actions">
 						<Button
 							variant="primary"
-							onClick={saveSettings}
+							className="ud-button-save" onClick={saveSettings}
 							isBusy={isSaving}
 							disabled={isSaving}
 							__next40pxDefaultSize={true}
 							__nextHasNoMarginBottom={true}
 						>
-							{__("Speichern", "ud-settings")}
+							{__("Änderungen speichern", "ud-settings")}
 						</Button>
 					</div>
 				</div>

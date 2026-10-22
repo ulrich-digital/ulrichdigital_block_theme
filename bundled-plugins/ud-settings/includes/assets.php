@@ -17,6 +17,10 @@ function ud_settings_enqueue_admin_assets( $hook_suffix ) {
 		return;
 	}
 
+	wp_enqueue_style( 'ud-settings-header', UD_SETTINGS_URL . 'assets/admin-header.css', array( 'wp-components' ), filemtime( UD_SETTINGS_PATH . 'assets/admin-header.css' ) );
+
+	wp_enqueue_style( 'ud-settings-buttons', UD_SETTINGS_URL . 'assets/admin-buttons.css', array( 'ud-settings-editor' ), filemtime( UD_SETTINGS_PATH . 'assets/admin-buttons.css' ) );
+
 	$script_path = UD_SETTINGS_PATH . 'build/admin-script.js';
 	$script_url  = UD_SETTINGS_URL . 'build/admin-script.js';
 	$asset_path  = UD_SETTINGS_PATH . 'build/admin-script.asset.php';

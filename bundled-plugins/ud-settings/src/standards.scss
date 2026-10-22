@@ -1,0 +1,41 @@
+/* Shared ulrich.digital options-page standard, 21 October 2026.
+   Scoped to this plugin; dashboard help and frontend typography stay independent. */
+.ud-settings-app {
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+ font-size: 13px; font-weight: 400; line-height: 1.5; letter-spacing: normal; font-style: normal;
+ button, input, select, textarea { font-family: inherit; }
+ input, textarea, select { font-size: 14px; line-height: 1.5; color: #252525; }
+ .option-description, .section-description { font-size: 13px; line-height: 1.5; color: #6c6860; }
+ .setting-title, .subsection-title, .visibility-title, .components-base-control__label,
+ .components-toggle-control__label { font-size: 13px; font-weight: 600; line-height: 1.5; }
+ .section-title { font-size: 15px; font-weight: 600; line-height: 1.4; }
+ .setting-description, .components-base-control__help { font-size: 12px; font-weight: 400; line-height: 1.6; color: #6c6860; }
+ .setting-meta, .option-meta, .visibility-meta { font-size: 12px; font-weight: 400; line-height: 1.5; }
+ .option-notice { display: contents; }
+ .option-actions .components-button { padding: 0 15px; height: auto; min-height: 30px; font-size: 13px; font-weight: 500; line-height: 28px; }
+ .components-button.is-primary { background: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9)); color: #fff; }
+ .components-form-toggle.is-checked .components-form-toggle__track { background: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9)); border-color: transparent; }
+ .components-form-toggle.is-checked .components-form-toggle__thumb { background: #fff; border-color: #fff; }
+ .ud-settings-card { box-shadow: none; }
+ .ud-settings-option { padding: 28px 30px; gap: 24px; }
+ .setting-row { padding: 16px; box-shadow: none; }
+ .setting-note { font-size: 13px; line-height: 1.6; }
+ @media (max-width: 600px) {
+  padding: 0;
+  .ud-settings-option { padding: 22px 18px; }
+  .option-section { padding: 12px; }
+  .setting-meta, .option-meta, .visibility-meta { white-space: normal; }
+ }
+}
+.ud-settings-toast {
+ position: fixed; right: 24px; bottom: 24px; z-index: 100000;
+ display: flex; align-items: center; gap: 16px; box-sizing: border-box;
+ max-width: min(440px, calc(100vw - 32px)); padding: 14px 16px;
+ border: 1px solid #deded9; border-radius: 8px; background: #fff; color: #252525;
+ box-shadow: 0 4px 20px rgba(0,0,0,.12);
+ font: 400 13px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ button { flex: 0 0 auto; width: 30px; height: 30px; border: 0; border-radius: 4px; background: transparent; color: inherit; font: inherit; font-size: 22px; cursor: pointer; }
+ button:hover { background: #f0f0f1; }
+ button:focus-visible { outline: 2px solid var(--wp-admin-theme-color, #3858e9); }
+ @media (max-width: 600px) { right: 16px; bottom: 16px; }
+}

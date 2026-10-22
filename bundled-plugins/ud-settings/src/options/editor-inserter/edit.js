@@ -1,10 +1,10 @@
+import Notice, { rememberSavedNotice } from "../../components/status-notice";
 import apiFetch from '@wordpress/api-fetch';
 import {
 	Button,
 	Card,
 	CardBody,
 	CheckboxControl,
-	Notice,
 	Spinner,
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
@@ -129,6 +129,7 @@ export default function EditorInserterOption() {
 			} );
 
 			window.setTimeout( () => {
+				rememberSavedNotice();
 				window.location.reload();
 			}, 700 );
 		} catch ( error ) {
@@ -302,13 +303,13 @@ export default function EditorInserterOption() {
 
 						<Button
 							variant="primary"
-							onClick={ saveSettings }
+							className="ud-button-save" onClick={ saveSettings }
 							isBusy={ isSaving }
 							disabled={ isSaving }
 							__next40pxDefaultSize={ true }
 							__nextHasNoMarginBottom={ true }
 						>
-							{ __( 'Speichern', 'ud-settings' ) }
+							{ __( 'Änderungen speichern', 'ud-settings' ) }
 						</Button>
 					</div>
 				</div>

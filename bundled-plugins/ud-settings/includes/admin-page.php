@@ -30,7 +30,16 @@ function ud_settings_render_admin_page() {
 	}
 	?>
 
-	<div class="wrap ud-settings-wrap">
+	<div class="wrap ud-settings-wrap ud-admin-page">
+		<header class="ud-admin-header">
+            <div class="ud-admin-header__content">
+                <p class="ud-admin-header__brand">ulrich.digital</p>
+                <h1 class="ud-admin-header__title"><?php esc_html_e( 'Individuelle Einstellungen für WordPress', 'ud-settings' ); ?></h1>
+                <p class="ud-admin-header__lead"><?php esc_html_e( 'Hier passen Sie Verwaltung, Editor und Medien über die Standard-Einstellungen von WordPress hinaus an.', 'ud-settings' ); ?></p>
+            </div>
+            <span class="ud-admin-header__version"><?php echo esc_html( sprintf( __( 'Version %s', 'ud-settings' ), UD_SETTINGS_VERSION ) ); ?></span>
+        </header>
+        <hr class="wp-header-end" />
 		<div id="ud-settings-app"></div>
 	</div>
 

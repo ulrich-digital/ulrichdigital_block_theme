@@ -1,3 +1,4 @@
+import StatusNotice, { consumeSavedNotice } from "./components/status-notice";
 import { createRoot, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
@@ -87,6 +88,7 @@ function getInitialActiveOption() {
 }
 
 function AdminApp() {
+	const [savedNotice, setSavedNotice] = useState(consumeSavedNotice);
 	const [activeOption, setActiveOption] = useState(getInitialActiveOption);
 
 	const changeActiveOption = (optionId) => {
@@ -101,19 +103,7 @@ function AdminApp() {
 
 	return (
 		<div className="ud-settings-app">
-			<div className="app-header">
-				<p className="app-eyebrow">ulrich.digital</p>
-
-				<h1 className="app-title">{__("Settings", "ud-settings")}</h1>
-
-				<p className="app-intro">
-					{__(
-						"Zentrale Einstellungen für WordPress-Projekte.",
-						"ud-settings"
-					)}
-				</p>
-			</div>
-
+			{savedNotice && <StatusNotice status="success" onRemove={() => setSavedNotice(false)}>{__("Änderungen gespeichert.", "ud-settings")}</StatusNotice>}
 			<div className="app-layout">
 				<nav
 					className="app-nav"
@@ -126,6 +116,7 @@ function AdminApp() {
 							<button
 								className={isActive ? "nav-item is-active" : "nav-item"}
 								type="button"
+								aria-current={isActive ? "page" : undefined}
 								onClick={() => changeActiveOption(option.id)}
 								key={option.id}
 							>

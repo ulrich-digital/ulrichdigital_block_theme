@@ -1,0 +1,4 @@
+/* ulrich.digital button radii — 2026-10-22. Keep identical in all plugins. */
+.ud-admin-page :is(button, .button, .components-button, input[type="submit"], input[type="button"]),
+.ud-settings-toast button { border-radius: 7px; }
+.ud-admin-page :is(.ud-button-save, .ud-button-low, .components-button.is-tertiary, .components-button.is-link, .button-link) { border-radius: 2px; }

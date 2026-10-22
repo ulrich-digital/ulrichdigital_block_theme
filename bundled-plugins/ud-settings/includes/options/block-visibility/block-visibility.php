@@ -80,7 +80,7 @@ function ud_settings_block_visibility_rest_get_data() {
 	$registered_blocks             = WP_Block_Type_Registry::get_instance()->get_all_registered();
 	$excluded_blocks               = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCKS, array() );
 	$excluded_variations           = get_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS, array() );
-	
+
 	$blocks     = array();
 	$variations = ud_settings_block_visibility_get_variations_for_rest( $excluded_variations );
 
@@ -141,7 +141,7 @@ function ud_settings_block_visibility_rest_update_data( WP_REST_Request $request
 
 	update_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCKS, $excluded_blocks );
 	update_option( UD_SETTINGS_OPTION_EXCLUDED_BLOCK_VARIATIONS, $excluded_variations );
-	
+
 	return rest_ensure_response(
 		array(
 			'success'                    => true,
